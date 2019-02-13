@@ -1,9 +1,11 @@
 FROM openjdk:8-jdk-slim
 
-ARG SPARK_VERSION=2.3.2
+ARG SPARK_VERSION=2.4.0
 ENV SPARK_VERSION ${SPARK_VERSION}
 
-ARG HADOOP_VERSION=3.2.0
+# Must be able to match the hadoop-X.Y id
+# See: https://github.com/apache/spark/blob/v2.4.0/pom.xml#L2692
+ARG HADOOP_VERSION=3.1.0
 ENV HADOOP_VERSION ${HADOOP_VERSION}
 
 RUN set -eu && \
