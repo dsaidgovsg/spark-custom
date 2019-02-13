@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM openjdk:8-jdk-slim
 
 ARG SPARK_VERSION=2.3.2
 ENV SPARK_VERSION ${SPARK_VERSION}
