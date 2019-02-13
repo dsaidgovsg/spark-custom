@@ -12,5 +12,6 @@ RUN set -eu && \
         git \
         ; \
     git clone https://github.com/apache/spark.git -b v${SPARK_VERSION}; \
+    cd spark; \
     ./build/mvn -T 4 -Phadoop-$(echo ${HADOOP_VERSION} | cut -c 1-3) -Dhadoop.version=${HADOOP_VERSION} -Phive -Phive-thriftserver -DskipTests clean package; \
     :
