@@ -9,13 +9,21 @@ ARG HADOOP_VERSION=3.1.0
 ENV HADOOP_VERSION ${HADOOP_VERSION}
 
 RUN set -eu && \
+    # apt requirements
     apt-get update && apt-get -y --no-install-recommends install \
         ca-certificates \
         curl \
         git \
         ; \
+    # Spark installation
     git clone https://github.com/apache/spark.git -b v${SPARK_VERSION}; \
     cd spark; \
     ./build/mvn -T 4 -Phadoop-$(echo ${HADOOP_VERSION} | cut -c 1-3) -Dhadoop.version=${HADOOP_VERSION} -Phive -Phive-thriftserver -DskipTests clean package; \
-    apt-get remove curl; \
+    # apt clean-up
+    apt-get remove -y \
+        ca-certificates \
+        curl \
+        git \
+        ; \
+    rm -rf /var/lib/apt/lists/*; \
     :
