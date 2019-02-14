@@ -5,6 +5,7 @@ jobs:
     environment:
       SPARK_VERSION: 2.4.0
       HADOOP_VERSION: 3.1.0
+      ANTLR4_VERSION: 4.5.1
       
     steps:
     - checkout
@@ -16,12 +17,13 @@ jobs:
     - run: |
         docker build . -t guangie88/spark-custom:${SPARK_VERSION}_hadoop-${HADOOP_VERSION} \
           --build-arg SPARK_VERSION=${SPARK_VERSION} \
-          --build-arg HADOOP_VERSION=${HADOOP_VERSION}
+          --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
+          --build-arg ANTLR4_VERSION=${ANTLR4_VERSION}
 
     # push the application image
     - run: |
         docker tag \
-          guangie88/spark-custom:${SPARK_VERSION}_hadoop-${HADOOP_VERSION} \
-          guangie88/test-spark-custom:${SPARK_VERSION}_hadoop-${HADOOP_VERSION}
+          guangie88/spark-custom:${SPARK_VERSION}_hadoop-${HADOOP_VERSION}_antlr4-${ANTLR4_VERSION} \
+          guangie88/test-spark-custom:${SPARK_VERSION}_hadoop-${HADOOP_VERSION}_antlr4-${ANTLR4_VERSION}
 
-    - run: docker push guangie88/test-spark-custom:${SPARK_VERSION}_hadoop-${HADOOP_VERSION}
+    - run: docker push guangie88/test-spark-custom:${SPARK_VERSION}_hadoop-${HADOOP_VERSION}_antlr4-${ANTLR4_VERSION}
