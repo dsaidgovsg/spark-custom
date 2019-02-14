@@ -21,6 +21,7 @@ RUN set -eu && \
         curl \
         git \
         python \
+        python-setuptools \
         ; \
     # Prep the Spark repo
     git clone https://github.com/apache/spark.git -b v${SPARK_VERSION}; \
