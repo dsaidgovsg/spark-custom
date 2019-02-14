@@ -32,7 +32,8 @@ RUN set -eu && \
         -Phive \
         -Phive-thriftserver \
         -Dhadoop.version=${HADOOP_VERSION} \
-        -Dhive.version=${HIVE_VERSION}.spark2 \
+        # This normally comes withs suffix ".spark2", seems to suggest special variant
+        -Dhive.version=${HIVE_VERSION} \
         -Dhive.version.short=${HIVE_VERSION} \
         -Dhive.group="org.apache.hive" \
         -DskipTests \
