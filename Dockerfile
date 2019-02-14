@@ -11,8 +11,8 @@ ENV SPARK_VERSION ${SPARK_VERSION}
 ARG HADOOP_VERSION=3.1.0
 ENV HADOOP_VERSION ${HADOOP_VERSION}
 
-ARG HIVE_VERSION=3.0.0
-ENV HIVE_VERSION ${HIVE_VERSION}
+# ARG HIVE_VERSION=3.0.0
+# ENV HIVE_VERSION ${HIVE_VERSION}
 
 RUN set -eu && \
     # apt requirements
@@ -28,16 +28,23 @@ RUN set -eu && \
     # sed -i 's/org\.spark-project\.hive/org.apache.hive/' pom.xml; \
     # cat pom.xml; \
     # Spark installation
-    ./build/mvn -T 4 -Phadoop-$(echo ${HADOOP_VERSION} | cut -c 1-3) \
+    ./dev/make-distribution.sh \
+        --pip --r --tgz --name spark_hadoop-${HADOOP_VERSION} \
+        -Phadoop-$(echo ${HADOOP_VERSION} | cut -c 1-3) \
+        -Dhadoop.version=${HADOOP_VERSION} \
+        -DskipTests; \
+    # ./dev/make-distribution.sh --name custom-spark --pip --r --tgz -Psparkr -Phadoop-2.7 -Phive -Phive-thriftserver -Pmesos -Pyarn; /
+    # ./build/mvn -T 4 \
+        # -Phadoop-$(echo ${HADOOP_VERSION} | cut -c 1-3) \
         # -Phive \
         # -Phive-thriftserver \
-        -Dhadoop.version=${HADOOP_VERSION} \
+        # -Dhadoop.version=${HADOOP_VERSION} \
         # This normally comes withs suffix ".spark2", seems to suggest special variant
         # -Dhive.version=${HIVE_VERSION} \
         # -Dhive.version.short=${HIVE_VERSION} \
         # -Dhive.group="org.apache.hive" \
-        -DskipTests \
-        clean package; \
+        # -DskipTests \
+        # clean package; \
     # apt clean-up
     rm -rf /var/lib/apt/lists/*; \
     :
