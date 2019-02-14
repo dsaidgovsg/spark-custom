@@ -21,12 +21,12 @@ RUN set -eu && \
         curl \
         git \
         ; \
-    # Go into the right directory first
+    # Prep the Spark repo
+    git clone https://github.com/apache/spark.git -b v${SPARK_VERSION}; \
     cd spark; \
     # Modify the pom.xml to get better Hive support
     sed -i 's/org\.spark-project\.hive/org.apache.hive/' pom.xml; \
     # Spark installation
-    git clone https://github.com/apache/spark.git -b v${SPARK_VERSION}; \
     ./build/mvn -T 4 -Phadoop-$(echo ${HADOOP_VERSION} | cut -c 1-3) \
         -Phive \
         -Phive-thriftserver \
