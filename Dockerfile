@@ -29,13 +29,13 @@ RUN set -eu && \
     # cat pom.xml; \
     # Spark installation
     ./build/mvn -T 4 -Phadoop-$(echo ${HADOOP_VERSION} | cut -c 1-3) \
-        -Phive \
-        -Phive-thriftserver \
+        # -Phive \
+        # -Phive-thriftserver \
         -Dhadoop.version=${HADOOP_VERSION} \
         # This normally comes withs suffix ".spark2", seems to suggest special variant
-        -Dhive.version=${HIVE_VERSION} \
-        -Dhive.version.short=${HIVE_VERSION} \
-        -Dhive.group="org.apache.hive" \
+        # -Dhive.version=${HIVE_VERSION} \
+        # -Dhive.version.short=${HIVE_VERSION} \
+        # -Dhive.group="org.apache.hive" \
         -DskipTests \
         clean package; \
     # apt clean-up
