@@ -20,10 +20,5 @@ RUN set -eu && \
     cd spark; \
     ./build/mvn -T 4 -Phadoop-$(echo ${HADOOP_VERSION} | cut -c 1-3) -Dhadoop.version=${HADOOP_VERSION} -Phive -Phive-thriftserver -DskipTests clean package; \
     # apt clean-up
-    apt-get remove -y \
-        ca-certificates \
-        curl \
-        git \
-        ; \
     rm -rf /var/lib/apt/lists/*; \
     :
