@@ -5,12 +5,23 @@ jobs:
     steps:
     - checkout
 
+    - run: 
+        SPARK_VERSION=2.4.0
+        HADOOP_VERSION=3.1.0
+
     # login to Docker first
     - run: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
     
     # build the application image
-    - run: docker build . -t guangie88/spark-custom:2.3.2_hadoop-3.2.0
+    - run: |
+        docker build . -t guangie88/spark-custom:${SPARK_VERSION}_hadoop-${HADOOP_VERSION} \
+          --build-arg SPARK_VERSION=${SPARK_VERSION} \
+          --build-arg HADOOP_VERSION=${HADOOP_VERSION}
 
     # push the application image
-    - run: docker tag guangie88/spark-custom:2.3.2_hadoop-3.2.0 guangie88/test-spark-custom:2.3.2_hadoop-3.2.0
-    - run: docker push guangie88/test-spark-custom:2.3.2_hadoop-3.2.0
+    - run: |
+        docker tag \
+          guangie88/spark-custom:${SPARK_VERSION}_hadoop-${HADOOP_VERSION} \
+          guangie88/test-spark-custom:${SPARK_VERSION}_hadoop-${HADOOP_VERSION}
+
+    - run: docker push guangie88/test-spark-custom:${SPARK_VERSION}_hadoop-${HADOOP_VERSION}
