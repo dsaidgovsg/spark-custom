@@ -37,7 +37,7 @@ RUN set -eu && \
         -DskipTests; \
     SPARK_ACTUAL_HOME=/opt/spark-${SPARK_VERSION}_hadoop-${HADOOP_VERSION}; \
     mv dist/ ${SPARK_ACTUAL_HOME}; \
-    ln -s ${SPARK_HOME} ${SPARK_ACTUAL_HOME}; \
+    ln -s ${SPARK_ACTUAL_HOME} ${SPARK_HOME}; \
     # ./build/mvn -T 4 \
         # -Phadoop-$(echo ${HADOOP_VERSION} | cut -c 1-3) \
         # -Phive \
