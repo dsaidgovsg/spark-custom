@@ -1,5 +1,8 @@
 FROM openjdk:8-jdk-slim
 
+ARG SPARK_HOME=/opt/spark
+ENV SPARK_HOME ${SPARK_HOME}
+
 ARG SPARK_VERSION=2.4.0
 ENV SPARK_VERSION ${SPARK_VERSION}
 
@@ -26,16 +29,15 @@ RUN set -eu && \
     # Prep the Spark repo
     git clone https://github.com/apache/spark.git -b v${SPARK_VERSION}; \
     cd spark; \
-    # Modify the pom.xml to get better Hive support
-    # sed -i 's/org\.spark-project\.hive/org.apache.hive/' pom.xml; \
-    # cat pom.xml; \
     # Spark installation
     ./dev/make-distribution.sh \
-        --pip --tgz --name spark_hadoop-${HADOOP_VERSION} \
+        --pip --name spark-${SPARK_VERSION}_hadoop-${HADOOP_VERSION} \
         -Phadoop-$(echo ${HADOOP_VERSION} | cut -c 1-3) \
         -Dhadoop.version=${HADOOP_VERSION} \
         -DskipTests; \
-    # ./dev/make-distribution.sh --name custom-spark --pip --r --tgz -Psparkr -Phadoop-2.7 -Phive -Phive-thriftserver -Pmesos -Pyarn; /
+    SPARK_ACTUAL_HOME=/opt/spark-${SPARK_VERSION}_hadoop-${HADOOP_VERSION}; \
+    mv dist/ ${SPARK_ACTUAL_HOME}; \
+    ln -s ${SPARK_HOME} ${SPARK_ACTUAL_HOME}; \
     # ./build/mvn -T 4 \
         # -Phadoop-$(echo ${HADOOP_VERSION} | cut -c 1-3) \
         # -Phive \
@@ -50,3 +52,5 @@ RUN set -eu && \
     # apt clean-up
     rm -rf /var/lib/apt/lists/*; \
     :
+
+ENV PATH ${PATH}:${SPARK_HOME}/bin
