@@ -5,7 +5,7 @@ jobs:
     environment:
       SPARK_VERSION: 2.4.0
       HADOOP_VERSION: 3.1.0
-      ANTLR4_VERSION: 4.5.1
+      ANTLR4_VERSION: "4.5"
       
     steps:
     - checkout
