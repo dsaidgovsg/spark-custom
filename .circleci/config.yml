@@ -14,7 +14,7 @@ jobs:
     
     # build the application image
     - run: |
-        docker build . -t guangie88/spark-custom:${SPARK_VERSION}_hadoop-${HADOOP_VERSION} \
+        docker build . -t guangie88/spark-custom:${SPARK_VERSION}_hadoop-${HADOOP_VERSION}_with-hive \
           --build-arg SPARK_VERSION=${SPARK_VERSION} \
           --build-arg HADOOP_VERSION=${HADOOP_VERSION}
 
