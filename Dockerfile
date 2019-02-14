@@ -20,6 +20,7 @@ RUN set -eu && \
         ca-certificates \
         curl \
         git \
+        python \
         ; \
     # Prep the Spark repo
     git clone https://github.com/apache/spark.git -b v${SPARK_VERSION}; \
@@ -29,7 +30,7 @@ RUN set -eu && \
     # cat pom.xml; \
     # Spark installation
     ./dev/make-distribution.sh \
-        --pip --r --tgz --name spark_hadoop-${HADOOP_VERSION} \
+        --pip --tgz --name spark_hadoop-${HADOOP_VERSION} \
         -Phadoop-$(echo ${HADOOP_VERSION} | cut -c 1-3) \
         -Dhadoop.version=${HADOOP_VERSION} \
         -DskipTests; \
