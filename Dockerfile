@@ -6,9 +6,6 @@ ENV SPARK_HOME ${SPARK_HOME}
 ARG SPARK_VERSION=2.4.0
 ENV SPARK_VERSION ${SPARK_VERSION}
 
-ARG ANTLR4_VERSION=4.5.1
-ENV ANTLR4_VERSION ${ANTLR4_VERSION}
-
 # Must be able to match the hadoop-X.Y id
 # See: https://github.com/apache/spark/blob/v2.4.0/pom.xml#L2692
 # Also see Hive compatibility with Spark
@@ -35,9 +32,9 @@ RUN set -eu && \
     # Spark installation
     ./dev/make-distribution.sh \
         --pip --name spark-${SPARK_VERSION}_hadoop-${HADOOP_VERSION} \
+        -Phive \
         -Phadoop-$(echo ${HADOOP_VERSION} | cut -c 1-3) \
         -Dhadoop.version=${HADOOP_VERSION} \
-        -Dantlr4.version=${ANTLR4_VERSION} \
         -DskipTests; \
     SPARK_ACTUAL_HOME=/opt/spark-${SPARK_VERSION}_hadoop-${HADOOP_VERSION}; \
     mv dist/ ${SPARK_ACTUAL_HOME}; \
