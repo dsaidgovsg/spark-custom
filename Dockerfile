@@ -25,7 +25,8 @@ RUN set -eu && \
     git clone https://github.com/apache/spark.git -b v${SPARK_VERSION}; \
     cd spark; \
     # Modify the pom.xml to get better Hive support
-    sed -i 's/org\.spark-project\.hive/org.apache.hive/' pom.xml; \
+    # sed -i 's/org\.spark-project\.hive/org.apache.hive/' pom.xml; \
+    # cat pom.xml; \
     # Spark installation
     ./build/mvn -T 4 -Phadoop-$(echo ${HADOOP_VERSION} | cut -c 1-3) \
         -Phive \
@@ -33,6 +34,7 @@ RUN set -eu && \
         -Dhadoop.version=${HADOOP_VERSION} \
         -Dhive.version=${HIVE_VERSION}.spark2 \
         -Dhive.version.short=${HIVE_VERSION} \
+        -Dhive.group="org.apache.hive" \
         -DskipTests \
         clean package; \
     # apt clean-up
