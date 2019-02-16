@@ -37,15 +37,15 @@ jobs:
   publish:
     docker:
     - image: circleci/python:3-stretch
-      auth:
-        username: ${DOCKER_USERNAME}
-        password: ${DOCKER_PASSWORD}
 
     steps:
     - attach_workspace:
         at: /tmp/artifacts
     - setup_remote_docker:
         docker_layer_caching: true
+    - run:
+        name: Log in to Docker registry
+        command: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
     - run:
         name: Load from previous Docker build and push image into Docker
         command: |
