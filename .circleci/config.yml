@@ -14,7 +14,6 @@ jobs:
     - checkout
     - setup_remote_docker:
         docker_layer_caching: true
-
     - run:
         name: Build Docker image
         command: |
@@ -22,29 +21,36 @@ jobs:
             --build-arg SPARK_VERSION=${SPARK_VERSION} \
             --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
             --build-arg WITH_HIVE=${WITH_HIVE}
+    - run:
+        name: Save Docker image as artifact
+        command: |
+          HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _with-hive; fi)
+          TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}
+          docker tag ${IMAGE_NAME}:ref ${IMAGE_NAME}:${TAG_NAME}
+          mkdir -p /tmp/artifacts
+          docker save ${IMAGE_NAME}:${TAG_NAME} > /tmp/artifacts/${IMAGE_NAME}.tar
+    - persist_to_workspace:
+        root: /tmp/artifacts
+        paths:
+        - ${IMAGE_NAME}.tar
 
   publish:
     docker:
     - image: circleci/python:3-stretch
-      environment:
-        SPARK_VERSION: 2.4.0
-        HADOOP_VERSION: 3.1.0
-        WITH_HIVE: "true"
 
     steps:
+    - attach_workspace:
+        at: /tmp/artifacts
     - setup_remote_docker:
         docker_layer_caching: true
     - run:
         name: Log in to Docker
         command: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-
     - run:
-        name: Push image into Docker
+        name: Load from previous Docker build and push image into Docker
         command: |
-          HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _with-hive; fi)
-          TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}
-          docker tag ${IMAGE_NAME}:ref ${IMAGE_NAME}:${TAG_NAME}
-          docker push ${IMAGE_NAME}:${TAG_NAME}
+          IMAGE_WITH_TAG_NAME=$(docker load < /tmp/artifacts/${IMAGE_NAME}.tar | sed -E 's/Loaded image: (.+)/\1/')
+          docker push ${IMAGE_WITH_TAG_NAME}
 
 workflows:
   version: 2
