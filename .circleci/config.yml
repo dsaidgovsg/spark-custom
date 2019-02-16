@@ -28,11 +28,11 @@ jobs:
           TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}
           docker tag ${IMAGE_NAME}:ref ${IMAGE_NAME}:${TAG_NAME}
           mkdir -p /tmp/artifacts
-          docker save ${IMAGE_NAME}:${TAG_NAME} > /tmp/artifacts/${IMAGE_NAME}.tar
+          docker save ${IMAGE_NAME}:${TAG_NAME} > /tmp/artifacts/docker-image.tar
     - persist_to_workspace:
         root: /tmp/artifacts
         paths:
-        - ${IMAGE_NAME}.tar
+        - docker-image.tar
 
   publish:
     docker:
@@ -49,7 +49,7 @@ jobs:
     - run:
         name: Load from previous Docker build and push image into Docker
         command: |
-          IMAGE_WITH_TAG_NAME=$(docker load < /tmp/artifacts/${IMAGE_NAME}.tar | sed -E 's/Loaded image: (.+)/\1/')
+          IMAGE_WITH_TAG_NAME=$(docker load < /tmp/artifacts/docker-image.tar | sed -E 's/Loaded image: (.+)/\1/')
           docker push ${IMAGE_WITH_TAG_NAME}
 
 workflows:
