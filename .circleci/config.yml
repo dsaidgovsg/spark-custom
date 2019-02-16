@@ -4,7 +4,7 @@ jobs:
     environment:
       IMAGE_NAME: guangie88/spark-custom
     docker:
-    - image: circleci/python:alpine
+    - image: circleci/classic:latest
       environment:
         SPARK_VERSION: 2.4.0
         HADOOP_VERSION: 3.1.0
@@ -23,7 +23,7 @@ jobs:
 
   publish:
     docker:
-    - image: circleci/python:alpine
+    - image: circleci/classic:latest
       environment:
         SPARK_VERSION: 2.4.0
         HADOOP_VERSION: 3.1.0
