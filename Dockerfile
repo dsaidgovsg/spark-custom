@@ -1,4 +1,8 @@
-FROM openjdk:8-jdk-slim
+# Expecting Debian image
+ARG BUILDER_IMAGE=openjdk:8-jdk-slim
+FROM ${BUILDER_IMAGE}
+
+SHELL ["/bin/bash", "-c"]
 
 ARG SPARK_HOME=/opt/spark
 ENV SPARK_HOME ${SPARK_HOME}
@@ -15,7 +19,7 @@ ENV HADOOP_VERSION ${HADOOP_VERSION}
 ARG WITH_HIVE="true"
 ARG HIVE_HADOOP3_HIVE_EXEC_URL="https://github.com/guangie88/hive-exec-jar/releases/download/1.2.1.spark2-hadoop3/hive-exec-1.2.1.spark2.jar"
 
-RUN set -eu && \
+RUN set -euo pipefail && \
     # apt requirements
     apt-get update && apt-get -y --no-install-recommends install \
         curl \
