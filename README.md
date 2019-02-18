@@ -1,5 +1,7 @@
 # `spark-custom`
 
+[![CircleCI](https://circleci.com/gh/guangie88/spark-custom.svg?style=svg)](https://circleci.com/gh/guangie88/spark-custom)
+
 Experimental Dockerfile set-up for custom Spark build releases.
 
 This set-up is able to use a fixed-up `hive-exec-1.2.1.spark2.jar` with using
