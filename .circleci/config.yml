@@ -45,6 +45,9 @@ shared_build: &shared_build
   - run:
       name: Build Docker image and save image tar as artifact
       command: |
+        TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}
+        echo ${TAG_NAME} > /tmp/artifacts/tag-name
+
         if [ ! -f /tmp/artifacts/docker-image.tar ]; then
           docker build . -f Dockerfile-${DIST} -t ${IMAGE_NAME}:ref \
             --build-arg SPARK_VERSION=${SPARK_VERSION} \
@@ -56,9 +59,8 @@ shared_build: &shared_build
           HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _with-hive; fi)
           PYSPARK_TAG_SUFFIX=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _with-pyspark; fi)
           TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}
-          docker tag ${IMAGE_NAME}:ref ${IMAGE_NAME}:${TAG_NAME}
-          mkdir -p /tmp/artifacts
-          docker save ${IMAGE_NAME}:${TAG_NAME} > /tmp/artifacts/docker-image.tar
+          
+          docker save ${IMAGE_NAME}:${TAG_NAME} -o /tmp/artifacts/docker-image.tar
         fi
   - save_cache:
       key: v1-spark-custom-{{ checksum "/tmp/cache-hash" }}
@@ -69,6 +71,7 @@ shared_build: &shared_build
       root: /tmp/artifacts
       paths:
       - docker-image.tar
+      - tag-name
 
 #
 # Publish step
@@ -88,8 +91,10 @@ shared_publish: &shared_publish
   - run:
       name: Load from previous Docker build and push image into Docker
       command: |
-        IMAGE_WITH_TAG_NAME=$(docker load < /tmp/artifacts/docker-image.tar | sed -E 's/Loaded image: (.+)/\1/')
-        docker push ${IMAGE_WITH_TAG_NAME}
+        TAG_NAME=$(cat /tmp/artifacts/tag-name)
+        docker load -i /tmp/artifacts/docker-image.tar
+        docker tag ${IMAGE_NAME}:ref ${IMAGE_NAME}:${TAG_NAME}
+        docker push ${IMAGE_NAME}:${TAG_NAME}
 
 #
 # Jobs and workflows
