@@ -72,8 +72,6 @@ RUN set -euo pipefail && \
         ; \
     :
 
-ENV PATH ${PATH}:${SPARK_HOME}/bin
-
 #
 # Release
 #
