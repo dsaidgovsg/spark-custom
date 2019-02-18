@@ -101,3 +101,5 @@ RUN set -euo pipefail; \
             ; \
     fi; \
     :
+
+ENV PATH ${PATH}:${SPARK_HOME}/bin

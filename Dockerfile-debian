@@ -75,8 +75,6 @@ RUN set -euo pipefail && \
     rm -rf /var/lib/apt/lists/*; \
     :
 
-ENV PATH ${PATH}:${SPARK_HOME}/bin
-
 #
 # Release
 #
@@ -106,3 +104,5 @@ RUN set -euo pipefail; \
         rm -rf /var/lib/apt/lists/*; \
     fi; \
     :
+
+ENV PATH ${PATH}:${SPARK_HOME}/bin
