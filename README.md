@@ -2,10 +2,11 @@
 
 [![CircleCI](https://circleci.com/gh/guangie88/spark-custom.svg?style=svg)](https://circleci.com/gh/guangie88/spark-custom)
 
-Experimental Dockerfile set-up for custom Spark build releases.
+Experimental Dockerfile set-up for custom Spark build releases. Builds for both
+Debian and Alpine.
 
-This set-up is able to use a fixed-up `hive-exec-1.2.1.spark2.jar` with using
-integration with Hive.
+This set-up is able to use a fixed-up `hive-exec-1.2.1.spark2.jar` for Hadoop 3
+when using integration with Hive.
 
 The current build arguments are supported:
 
