@@ -3,32 +3,62 @@ jobs:
   build:
     environment:
       IMAGE_NAME: guangie88/spark-custom
+      BUILDER_IMAGE: openjdk:8-jdk-slim
     docker:
     - image: circleci/python:3-stretch
       environment:
         SPARK_VERSION: 2.4.0
         HADOOP_VERSION: 3.1.0
         WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
       
     steps:
     - checkout
     - setup_remote_docker:
         docker_layer_caching: true
     - run:
-        name: Build Docker image
+        name: Get additional values for checking cache
         command: |
-          docker build . -t ${IMAGE_NAME}:ref \
-            --build-arg SPARK_VERSION=${SPARK_VERSION} \
-            --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
-            --build-arg WITH_HIVE=${WITH_HIVE}
+          DOCKER_VERSION=$(docker --version)
+          echo ${DOCKER_VERSION} >> /tmp/cache-hash
+
+          DOCKER_BUILD_IMAGE_DIGEST="$(docker pull ${BUILDER_IMAGE} | grep 'Digest:' | sed -E 's/Digest: (.+)/\1/')"
+          echo ${DOCKER_BUILD_IMAGE_DIGEST} >> /tmp/cache-hash
+
+          DOCKERFILE_HASH=$(cat Dockerfile | md5sum | cut -d' ' -f1)
+          echo ${DOCKERFILE_HASH} >> /tmp/cache-hash
+
+          echo ${SPARK_VERSION} >> /tmp/cache-hash
+          echo ${HADOOP_VERSION} >> /tmp/cache-hash
+          echo ${WITH_HIVE} >> /tmp/cache-hash
+          echo ${WITH_PYSPARK} >> /tmp/cache-hash
+
+          cat /tmp/cache-hash
+
+    - restore_cache:
+        keys:
+        - v1-spark-custom-{{ checksum "/tmp/cache-hash" }}
     - run:
-        name: Save Docker image as artifact
+        name: Create artifacts directory
+        command: mkdir -p /tmp/artifacts
+    - run:
+        name: Build Docker image and save image tar as artifact
         command: |
-          HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _with-hive; fi)
-          TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}
-          docker tag ${IMAGE_NAME}:ref ${IMAGE_NAME}:${TAG_NAME}
-          mkdir -p /tmp/artifacts
-          docker save ${IMAGE_NAME}:${TAG_NAME} > /tmp/artifacts/docker-image.tar
+          if [ ! -f /tmp/artifacts/docker-image.tar ]; then
+            docker build . -t ${IMAGE_NAME}:ref \
+              --build-arg SPARK_VERSION=${SPARK_VERSION} \
+              --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
+              --build-arg WITH_HIVE=${WITH_HIVE} \
+              --build-arg WITH_PYSPARK=${WITH_PYSPARK} \
+              ;
+
+            HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _with-hive; fi)
+            PYSPARK_TAG_SUFFIX=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _with-pyspark; fi)
+            TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}
+            docker tag ${IMAGE_NAME}:ref ${IMAGE_NAME}:${TAG_NAME}
+            mkdir -p /tmp/artifacts
+            docker save ${IMAGE_NAME}:${TAG_NAME} > /tmp/artifacts/docker-image.tar
+          fi
     - persist_to_workspace:
         root: /tmp/artifacts
         paths:
