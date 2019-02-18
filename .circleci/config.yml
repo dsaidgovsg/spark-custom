@@ -19,7 +19,7 @@ jobs:
         name: Get additional values for checking cache
         command: |
           DOCKER_VERSION=$(docker --version | md5sum | cut -d' ' -f1)
-          DOCKER_BUILD_IMAGE_DIGEST="$(docker pull $(BUILDER_IMAGE) | grep 'Digest:' | sed -E 's/Digest: (.+)/\1/')"
+          DOCKER_BUILD_IMAGE_DIGEST="$(docker pull ${BUILDER_IMAGE} | grep 'Digest:' | sed -E 's/Digest: (.+)/\1/')"
           DOCKERFILE_HASH=$(cat Dockerfile | md5sum | cut -d' ' -f1)
           echo -e "${DOCKER_VERSION}-${DOCKER_BUILD_IMAGE_DIGEST}-${DOCKERFILE_HASH}-${SPARK_VERSION}-${HADOOP_VERSION}-${WITH_HIVE}" > /tmp/cache-hash
           cat /tmp/cache-hash
