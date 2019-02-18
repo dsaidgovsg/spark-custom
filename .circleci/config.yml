@@ -19,7 +19,8 @@ jobs:
         name: Get additional values for checking cache
         command: |
           DOCKER_VERSION=$(docker --version | md5sum | cut -d' ' -f1)
-          echo -e "${MAVEN_HASH}-${JAVA_HASH}-${GPG_NAME_EMAIL_HASH}-${HIVE_REPO_HASH}" > /tmp/cache-hash
+          DOCKER_BUILD_IMAGE_DIGEST="$(docker pull $(BUILDER_IMAGE) | grep 'Digest:' | sed -E 's/Digest: (.+)/\1/')"
+          echo -e "${DOCKER_VERSION}-${DOCKER_BUILD_IMAGE_DIGEST}-${SPARK_VERSION}-${HADOOP_VERSION}-${WITH_HIVE}" > /tmp/cache-hash
           cat /tmp/cache-hash
 
     - restore_cache:
@@ -31,16 +32,18 @@ jobs:
     - run:
         name: Build Docker image and save image tar as artifact
         command: |
-          docker build . -t ${IMAGE_NAME}:ref \
-            --build-arg SPARK_VERSION=${SPARK_VERSION} \
-            --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
-            --build-arg WITH_HIVE=${WITH_HIVE}
+          if [ ! -f /tmp/artifacts/docker-image.tar ]; then
+            docker build . -t ${IMAGE_NAME}:ref \
+              --build-arg SPARK_VERSION=${SPARK_VERSION} \
+              --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
+              --build-arg WITH_HIVE=${WITH_HIVE}
 
-          HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _with-hive; fi)
-          TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}
-          docker tag ${IMAGE_NAME}:ref ${IMAGE_NAME}:${TAG_NAME}
-          mkdir -p /tmp/artifacts
-          docker save ${IMAGE_NAME}:${TAG_NAME} > /tmp/artifacts/docker-image.tar
+            HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _with-hive; fi)
+            TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}
+            docker tag ${IMAGE_NAME}:ref ${IMAGE_NAME}:${TAG_NAME}
+            mkdir -p /tmp/artifacts
+            docker save ${IMAGE_NAME}:${TAG_NAME} > /tmp/artifacts/docker-image.tar
+          fi
     - persist_to_workspace:
         root: /tmp/artifacts
         paths:
