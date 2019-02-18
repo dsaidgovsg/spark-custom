@@ -94,6 +94,9 @@ ARG WITH_PYSPARK="true"
 COPY --from=builder ${SPARK_HOME} ${SPARK_HOME}
 
 RUN set -euo pipefail; \
+    apk add --no-cache \
+        bash \
+        ; \
     if [ "${WITH_PYSPARK}" = "true" ]; then \
         apk add --no-cache \
             python2 \

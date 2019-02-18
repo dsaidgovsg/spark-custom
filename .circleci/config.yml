@@ -55,7 +55,7 @@ shared_build: &shared_build
 
           HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _with-hive; fi)
           PYSPARK_TAG_SUFFIX=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _with-pyspark; fi)
-          TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}-${DIST}
+          TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}
           docker tag ${IMAGE_NAME}:ref ${IMAGE_NAME}:${TAG_NAME}
           mkdir -p /tmp/artifacts
           docker save ${IMAGE_NAME}:${TAG_NAME} > /tmp/artifacts/docker-image.tar
