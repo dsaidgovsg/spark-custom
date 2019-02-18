@@ -128,7 +128,7 @@ workflows:
   debian_build_and_publish:
     jobs:
     - debian_build
-    - shared_publish:
+    - publish:
         requires:
           - debian_build
         filters:
@@ -138,7 +138,7 @@ workflows:
   alpine_build_and_publish:
     jobs:
     - alpine_build
-    - shared_publish:
+    - publish:
         requires:
           - alpine_build
         filters:
