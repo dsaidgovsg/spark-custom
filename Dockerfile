@@ -27,8 +27,9 @@ RUN set -euo pipefail && \
         git \
         ; \
     # Prep the Spark repo
+    cd /; \
     git clone https://github.com/apache/spark.git -b v${SPARK_VERSION}; \
-    cd spark; \
+    cd /spark; \
     # Spark installation
     ## Hive prep
     HIVE_INSTALL_FLAG=$(if [ "${WITH_HIVE}" = "true" ]; then echo "-Phive"; fi); \
@@ -55,8 +56,7 @@ RUN set -euo pipefail && \
     # Pyspark clean-up
     if [ "${WITH_PYSPARK}" = "true" ]; then apt-get remove -y python-setuptools; fi; \
     # Repo clean-up
-    cd ..; \
-    rm -rf spark; \
+    rm -rf /spark; \
     # apt clean-up
     apt-get remove -y \
         curl \
