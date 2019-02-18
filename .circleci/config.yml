@@ -59,6 +59,11 @@ jobs:
             mkdir -p /tmp/artifacts
             docker save ${IMAGE_NAME}:${TAG_NAME} > /tmp/artifacts/docker-image.tar
           fi
+    - save_cache:
+        key: v1-spark-custom-{{ checksum "/tmp/cache-hash" }}
+        paths:
+        - /tmp/artifacts
+
     - persist_to_workspace:
         root: /tmp/artifacts
         paths:
