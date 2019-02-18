@@ -29,6 +29,7 @@ RUN set -euo pipefail && \
     mkdir -p $(dirname "${SPARK_HOME}"); \
     # apt requirements
     apk add --no-cache \
+        curl \
         git \
         ; \
     # Prep the Spark repo
@@ -68,6 +69,7 @@ RUN set -euo pipefail && \
     rm -rf /spark; \
     # apk clean-up
     apk del \
+        curl \
         git \
         ; \
     :
