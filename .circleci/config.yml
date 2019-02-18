@@ -3,15 +3,26 @@ jobs:
   build:
     environment:
       IMAGE_NAME: guangie88/spark-custom
-      BUILDER_IMAGE: openjdk:8-jdk-slim
-      RELEASE_IMAGE: openjdk:8-jre-slim
+      
     docker:
     - image: circleci/python:3-stretch
       environment:
+        BUILDER_IMAGE: openjdk:8-jdk-slim
+        RELEASE_IMAGE: openjdk:8-jre-slim
         SPARK_VERSION: 2.4.0
         HADOOP_VERSION: 3.1.0
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
+        DIST: debian
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-alpine
+        RELEASE_IMAGE: openjdk:8-jre-alpine
+        SPARK_VERSION: 2.4.0
+        HADOOP_VERSION: 3.1.0
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: alpine
       
     steps:
     - checkout
@@ -37,6 +48,8 @@ jobs:
           echo ${WITH_HIVE} >> /tmp/cache-hash
           echo ${WITH_PYSPARK} >> /tmp/cache-hash
 
+          echo ${DIST} >> /tmp/cache-hash
+
           cat /tmp/cache-hash
 
     - restore_cache:
@@ -49,7 +62,7 @@ jobs:
         name: Build Docker image and save image tar as artifact
         command: |
           if [ ! -f /tmp/artifacts/docker-image.tar ]; then
-            docker build . -t ${IMAGE_NAME}:ref \
+            docker build . -f Dockerfile-${DIST} -t ${IMAGE_NAME}:ref \
               --build-arg SPARK_VERSION=${SPARK_VERSION} \
               --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
               --build-arg WITH_HIVE=${WITH_HIVE} \
@@ -58,7 +71,7 @@ jobs:
 
             HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _with-hive; fi)
             PYSPARK_TAG_SUFFIX=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _with-pyspark; fi)
-            TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}
+            TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}-${DIST}
             docker tag ${IMAGE_NAME}:ref ${IMAGE_NAME}:${TAG_NAME}
             mkdir -p /tmp/artifacts
             docker save ${IMAGE_NAME}:${TAG_NAME} > /tmp/artifacts/docker-image.tar
