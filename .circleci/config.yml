@@ -40,7 +40,7 @@ jobs:
           DOCKER_RELEASE_IMAGE_DIGEST="$(docker pull ${RELEASE_IMAGE} | grep 'Digest:' | sed -E 's/Digest: (.+)/\1/')"
           echo ${DOCKER_RELEASE_IMAGE_DIGEST} >> /tmp/cache-hash
 
-          DOCKERFILE_HASH=$(cat Dockerfile | md5sum | cut -d' ' -f1)
+          DOCKERFILE_HASH=$(cat Dockerfile-${DIST} | md5sum | cut -d' ' -f1)
           echo ${DOCKERFILE_HASH} >> /tmp/cache-hash
 
           echo ${SPARK_VERSION} >> /tmp/cache-hash
