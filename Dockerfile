@@ -29,7 +29,7 @@ RUN set -euo pipefail && \
     # Create Spark home
     mkdir -p $(dirname "${SPARK_HOME}"); \
     # apt requirements
-    apt-get update && apt-get -y --no-install-recommends install \
+    apt-get update && apt-get install -y --no-install-recommends \
         curl \
         git \
         ; \
@@ -41,7 +41,7 @@ RUN set -euo pipefail && \
     ## Hive prep
     HIVE_INSTALL_FLAG=$(if [ "${WITH_HIVE}" = "true" ]; then echo "-Phive"; fi); \
     ## Pyspark prep
-    apt-get -y --no-install-recommends install \
+    apt-get install -y --no-install-recommends \
         python \
         python-setuptools \
         ; \
@@ -99,7 +99,7 @@ COPY --from=builder ${SPARK_HOME} ${SPARK_HOME}
 
 RUN set -euo pipefail; \
     if [ "${WITH_PYSPARK}" = "true" ]; then \
-        apt-get update && apt-get -y --no-install-recommends \
+        apt-get update && apt-get install -y --no-install-recommends \
             python \
             python3 \
             ; \
