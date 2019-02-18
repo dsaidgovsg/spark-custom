@@ -10,6 +10,7 @@ jobs:
         SPARK_VERSION: 2.4.0
         HADOOP_VERSION: 3.1.0
         WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
       
     steps:
     - checkout
@@ -18,10 +19,20 @@ jobs:
     - run:
         name: Get additional values for checking cache
         command: |
-          DOCKER_VERSION=$(docker --version | md5sum | cut -d' ' -f1)
+          DOCKER_VERSION=$(docker --version)
+          echo ${DOCKER_VERSION} >> /tmp/cache-hash
+
           DOCKER_BUILD_IMAGE_DIGEST="$(docker pull ${BUILDER_IMAGE} | grep 'Digest:' | sed -E 's/Digest: (.+)/\1/')"
+          echo ${DOCKER_BUILD_IMAGE_DIGEST} >> /tmp/cache-hash
+
           DOCKERFILE_HASH=$(cat Dockerfile | md5sum | cut -d' ' -f1)
-          echo -e "${DOCKER_VERSION}-${DOCKER_BUILD_IMAGE_DIGEST}-${DOCKERFILE_HASH}-${SPARK_VERSION}-${HADOOP_VERSION}-${WITH_HIVE}" > /tmp/cache-hash
+          echo ${DOCKERFILE_HASH} >> /tmp/cache-hash
+
+          echo ${SPARK_VERSION} >> /tmp/cache-hash
+          echo ${HADOOP_VERSION} >> /tmp/cache-hash
+          echo ${WITH_HIVE} >> /tmp/cache-hash
+          echo ${WITH_PYSPARK} >> /tmp/cache-hash
+
           cat /tmp/cache-hash
 
     - restore_cache:
@@ -37,10 +48,13 @@ jobs:
             docker build . -t ${IMAGE_NAME}:ref \
               --build-arg SPARK_VERSION=${SPARK_VERSION} \
               --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
-              --build-arg WITH_HIVE=${WITH_HIVE}
+              --build-arg WITH_HIVE=${WITH_HIVE} \
+              --build-arg WITH_PYSPARK=${WITH_PYSPARK} \
+              ;
 
             HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _with-hive; fi)
-            TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}
+            PYSPARK_TAG_SUFFIX=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _with-pyspark; fi)
+            TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}
             docker tag ${IMAGE_NAME}:ref ${IMAGE_NAME}:${TAG_NAME}
             mkdir -p /tmp/artifacts
             docker save ${IMAGE_NAME}:${TAG_NAME} > /tmp/artifacts/docker-image.tar
