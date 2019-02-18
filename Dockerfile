@@ -45,6 +45,9 @@ RUN set -euo pipefail && \
     ln -s ${SPARK_ACTUAL_HOME} ${SPARK_HOME}; \
     # Replace Hive for Hadoop 3 since Hive 1.2.1 does not officially support Hadoop 3
     if [ "${WITH_HIVE}" = "true" ] && [ "$(echo ${HADOOP_VERSION} | cut -c 1)" = "3" ]; then cd ${SPARK_HOME}/jars; curl -LO ${HIVE_HADOOP3_HIVE_EXEC_URL}; fi; \
+    # Repo clean-up
+    cd ..; \
+    rm -rf spark; \
     # apt clean-up
     apt-get remove -y \
         curl \
