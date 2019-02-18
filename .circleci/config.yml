@@ -46,7 +46,7 @@ shared_build: &shared_build
       name: Build Docker image and save image tar as artifact
       command: |
         TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}
-        echo "${IMAGE_NAME}:${TAG_NAME}" > /tmp/artifacts/image-name
+        echo "${IMAGE_NAME}:${TAG_NAME}" > /tmp/artifacts/image-tag-name
 
         if [ ! -f /tmp/artifacts/docker-image.tar ]; then
           docker build . -f Dockerfile-${DIST} -t ${IMAGE_NAME}:ref \
@@ -71,7 +71,7 @@ shared_build: &shared_build
       root: /tmp/artifacts
       paths:
       - docker-image.tar
-      - image-name
+      - image-tag-name
 
 #
 # Publish step
@@ -92,7 +92,7 @@ shared_publish: &shared_publish
       name: Load from previous Docker build and push image into Docker
       command: |
         REF_IMAGE_TAG_NAME=$(docker load -i /tmp/artifacts/docker-image.tar | sed -E 's/Loaded image: (.+)/\1/')
-        IMAGE_TAG_NAME=$(cat /tmp/artifacts/image-name)
+        IMAGE_TAG_NAME=$(cat /tmp/artifacts/image-tag-name)
         docker load -i /tmp/artifacts/docker-image.tar
         docker tag ${REF_IMAGE_TAG_NAME} ${IMAGE_TAG_NAME}
         docker push ${IMAGE_TAG_NAME}
