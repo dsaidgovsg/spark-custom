@@ -45,8 +45,8 @@ shared_build: &shared_build
   - run:
       name: Build Docker image and save image tar as artifact
       command: |
-        HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _with-hive; fi)
-        PYSPARK_TAG_SUFFIX=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _with-pyspark; fi)
+        HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo -hive; fi)
+        PYSPARK_TAG_SUFFIX=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo -pyspark; fi)
         TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}
         echo "${IMAGE_NAME}:${TAG_NAME}" > /tmp/artifacts/image-tag-name
 
