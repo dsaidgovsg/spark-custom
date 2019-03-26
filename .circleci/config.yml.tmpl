@@ -113,6 +113,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: debian
+  debian_publish_spark-{{ v.spark }}_hadoop-{{ v.hadoop }}_hive_pyspark:
+    <<: *shared_publish
 {% endfor %}
 {% for v in versions %}
   alpine_build_spark-{{ v.spark }}_hadoop-{{ v.hadoop }}_hive_pyspark:
@@ -127,32 +129,31 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: alpine
-{% endfor %}
-  publish:
+  alpine_publish_spark-{{ v.spark }}_hadoop-{{ v.hadoop }}_hive_pyspark:
     <<: *shared_publish
+{% endfor %}
 
 workflows:
   version: 2
-  debian_build_and_publish:
-    jobs:
 {% for v in versions %}
-    - debian_build_{{ v.spark }}_hadoop-{{ v.hadoop }}_hive_pyspark
-    - publish_{{ v.spark }}_hadoop-{{ v.hadoop }}_hive_pyspark:
+  debian_build_and_publish_spark-{{ v.spark }}_hadoop-{{ v.hadoop }}_hive_pyspark:
+    jobs:
+    - debian_build_spark-{{ v.spark }}_hadoop-{{ v.hadoop }}_hive_pyspark
+    - debian_publish_spark-{{ v.spark }}_hadoop-{{ v.hadoop }}_hive_pyspark:
         requires:
-        - debian_build_{{ v.spark }}_hadoop-{{ v.hadoop }}_hive_pyspark
+        - debian_build_spark-{{ v.spark }}_hadoop-{{ v.hadoop }}_hive_pyspark
         filters:
           branches:
             only:
             - master
 {% endfor %}
-
-  alpine_build_and_publish:
-    jobs:
 {% for v in versions %}
-    - alpine_build_{{ v.spark }}_hadoop-{{ v.hadoop }}_hive_pyspark
-    - publish_{{ v.spark }}_hadoop-{{ v.hadoop }}_hive_pyspark:
+  alpine_build_and_publish_spark-{{ v.spark }}_hadoop-{{ v.hadoop }}_hive_pyspark:
+    jobs:
+    - alpine_build_spark-{{ v.spark }}_hadoop-{{ v.hadoop }}_hive_pyspark
+    - alpine_publish_spark-{{ v.spark }}_hadoop-{{ v.hadoop }}_hive_pyspark:
         requires:
-        - alpine_build_{{ v.spark }}_hadoop-{{ v.hadoop }}_hive_pyspark
+        - alpine_build_spark-{{ v.spark }}_hadoop-{{ v.hadoop }}_hive_pyspark
         filters:
           branches:
             only:

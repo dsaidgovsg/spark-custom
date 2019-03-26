@@ -113,6 +113,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: debian
+  debian_publish_spark-2.4.0_hadoop-3.1.0_hive_pyspark:
+    <<: *shared_publish
 
   debian_build_spark-2.3.3_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -126,6 +128,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: debian
+  debian_publish_spark-2.3.3_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   debian_build_spark-2.3.2_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -139,6 +143,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: debian
+  debian_publish_spark-2.3.2_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   debian_build_spark-2.3.1_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -152,6 +158,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: debian
+  debian_publish_spark-2.3.1_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   debian_build_spark-2.3.0_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -165,6 +173,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: debian
+  debian_publish_spark-2.3.0_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   debian_build_spark-2.2.3_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -178,6 +188,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: debian
+  debian_publish_spark-2.2.3_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   debian_build_spark-2.2.2_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -191,6 +203,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: debian
+  debian_publish_spark-2.2.2_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   debian_build_spark-2.2.1_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -204,6 +218,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: debian
+  debian_publish_spark-2.2.1_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   debian_build_spark-2.2.0_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -217,6 +233,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: debian
+  debian_publish_spark-2.2.0_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   debian_build_spark-2.1.3_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -230,6 +248,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: debian
+  debian_publish_spark-2.1.3_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   debian_build_spark-2.1.2_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -243,6 +263,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: debian
+  debian_publish_spark-2.1.2_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   debian_build_spark-2.1.1_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -256,6 +278,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: debian
+  debian_publish_spark-2.1.1_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   debian_build_spark-2.1.0_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -269,6 +293,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: debian
+  debian_publish_spark-2.1.0_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   debian_build_spark-2.0.2_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -282,6 +308,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: debian
+  debian_publish_spark-2.0.2_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   debian_build_spark-2.0.1_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -295,6 +323,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: debian
+  debian_publish_spark-2.0.1_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   debian_build_spark-2.0.0_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -308,6 +338,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: debian
+  debian_publish_spark-2.0.0_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
 
   alpine_build_spark-2.4.0_hadoop-3.1.0_hive_pyspark:
@@ -322,6 +354,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: alpine
+  alpine_publish_spark-2.4.0_hadoop-3.1.0_hive_pyspark:
+    <<: *shared_publish
 
   alpine_build_spark-2.3.3_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -335,6 +369,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: alpine
+  alpine_publish_spark-2.3.3_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   alpine_build_spark-2.3.2_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -348,6 +384,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: alpine
+  alpine_publish_spark-2.3.2_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   alpine_build_spark-2.3.1_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -361,6 +399,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: alpine
+  alpine_publish_spark-2.3.1_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   alpine_build_spark-2.3.0_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -374,6 +414,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: alpine
+  alpine_publish_spark-2.3.0_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   alpine_build_spark-2.2.3_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -387,6 +429,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: alpine
+  alpine_publish_spark-2.2.3_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   alpine_build_spark-2.2.2_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -400,6 +444,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: alpine
+  alpine_publish_spark-2.2.2_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   alpine_build_spark-2.2.1_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -413,6 +459,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: alpine
+  alpine_publish_spark-2.2.1_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   alpine_build_spark-2.2.0_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -426,6 +474,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: alpine
+  alpine_publish_spark-2.2.0_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   alpine_build_spark-2.1.3_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -439,6 +489,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: alpine
+  alpine_publish_spark-2.1.3_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   alpine_build_spark-2.1.2_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -452,6 +504,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: alpine
+  alpine_publish_spark-2.1.2_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   alpine_build_spark-2.1.1_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -465,6 +519,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: alpine
+  alpine_publish_spark-2.1.1_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   alpine_build_spark-2.1.0_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -478,6 +534,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: alpine
+  alpine_publish_spark-2.1.0_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   alpine_build_spark-2.0.2_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -491,6 +549,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: alpine
+  alpine_publish_spark-2.0.2_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   alpine_build_spark-2.0.1_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -504,6 +564,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: alpine
+  alpine_publish_spark-2.0.1_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_publish
 
   alpine_build_spark-2.0.0_hadoop-2.7.3_hive_pyspark:
     <<: *shared_build
@@ -517,302 +579,361 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: alpine
-
-  publish:
+  alpine_publish_spark-2.0.0_hadoop-2.7.3_hive_pyspark:
     <<: *shared_publish
+
 
 workflows:
   version: 2
-  debian_build_and_publish:
+
+  debian_build_and_publish_spark-2.4.0_hadoop-3.1.0_hive_pyspark:
     jobs:
-
-    - debian_build_2.4.0_hadoop-3.1.0_hive_pyspark
-    - publish_2.4.0_hadoop-3.1.0_hive_pyspark:
+    - debian_build_spark-2.4.0_hadoop-3.1.0_hive_pyspark
+    - debian_publish_spark-2.4.0_hadoop-3.1.0_hive_pyspark:
         requires:
-        - debian_build_2.4.0_hadoop-3.1.0_hive_pyspark
+        - debian_build_spark-2.4.0_hadoop-3.1.0_hive_pyspark
         filters:
           branches:
             only:
             - master
 
-    - debian_build_2.3.3_hadoop-2.7.3_hive_pyspark
-    - publish_2.3.3_hadoop-2.7.3_hive_pyspark:
-        requires:
-        - debian_build_2.3.3_hadoop-2.7.3_hive_pyspark
-        filters:
-          branches:
-            only:
-            - master
-
-    - debian_build_2.3.2_hadoop-2.7.3_hive_pyspark
-    - publish_2.3.2_hadoop-2.7.3_hive_pyspark:
-        requires:
-        - debian_build_2.3.2_hadoop-2.7.3_hive_pyspark
-        filters:
-          branches:
-            only:
-            - master
-
-    - debian_build_2.3.1_hadoop-2.7.3_hive_pyspark
-    - publish_2.3.1_hadoop-2.7.3_hive_pyspark:
-        requires:
-        - debian_build_2.3.1_hadoop-2.7.3_hive_pyspark
-        filters:
-          branches:
-            only:
-            - master
-
-    - debian_build_2.3.0_hadoop-2.7.3_hive_pyspark
-    - publish_2.3.0_hadoop-2.7.3_hive_pyspark:
-        requires:
-        - debian_build_2.3.0_hadoop-2.7.3_hive_pyspark
-        filters:
-          branches:
-            only:
-            - master
-
-    - debian_build_2.2.3_hadoop-2.7.3_hive_pyspark
-    - publish_2.2.3_hadoop-2.7.3_hive_pyspark:
-        requires:
-        - debian_build_2.2.3_hadoop-2.7.3_hive_pyspark
-        filters:
-          branches:
-            only:
-            - master
-
-    - debian_build_2.2.2_hadoop-2.7.3_hive_pyspark
-    - publish_2.2.2_hadoop-2.7.3_hive_pyspark:
-        requires:
-        - debian_build_2.2.2_hadoop-2.7.3_hive_pyspark
-        filters:
-          branches:
-            only:
-            - master
-
-    - debian_build_2.2.1_hadoop-2.7.3_hive_pyspark
-    - publish_2.2.1_hadoop-2.7.3_hive_pyspark:
-        requires:
-        - debian_build_2.2.1_hadoop-2.7.3_hive_pyspark
-        filters:
-          branches:
-            only:
-            - master
-
-    - debian_build_2.2.0_hadoop-2.7.3_hive_pyspark
-    - publish_2.2.0_hadoop-2.7.3_hive_pyspark:
-        requires:
-        - debian_build_2.2.0_hadoop-2.7.3_hive_pyspark
-        filters:
-          branches:
-            only:
-            - master
-
-    - debian_build_2.1.3_hadoop-2.7.3_hive_pyspark
-    - publish_2.1.3_hadoop-2.7.3_hive_pyspark:
-        requires:
-        - debian_build_2.1.3_hadoop-2.7.3_hive_pyspark
-        filters:
-          branches:
-            only:
-            - master
-
-    - debian_build_2.1.2_hadoop-2.7.3_hive_pyspark
-    - publish_2.1.2_hadoop-2.7.3_hive_pyspark:
-        requires:
-        - debian_build_2.1.2_hadoop-2.7.3_hive_pyspark
-        filters:
-          branches:
-            only:
-            - master
-
-    - debian_build_2.1.1_hadoop-2.7.3_hive_pyspark
-    - publish_2.1.1_hadoop-2.7.3_hive_pyspark:
-        requires:
-        - debian_build_2.1.1_hadoop-2.7.3_hive_pyspark
-        filters:
-          branches:
-            only:
-            - master
-
-    - debian_build_2.1.0_hadoop-2.7.3_hive_pyspark
-    - publish_2.1.0_hadoop-2.7.3_hive_pyspark:
-        requires:
-        - debian_build_2.1.0_hadoop-2.7.3_hive_pyspark
-        filters:
-          branches:
-            only:
-            - master
-
-    - debian_build_2.0.2_hadoop-2.7.3_hive_pyspark
-    - publish_2.0.2_hadoop-2.7.3_hive_pyspark:
-        requires:
-        - debian_build_2.0.2_hadoop-2.7.3_hive_pyspark
-        filters:
-          branches:
-            only:
-            - master
-
-    - debian_build_2.0.1_hadoop-2.7.3_hive_pyspark
-    - publish_2.0.1_hadoop-2.7.3_hive_pyspark:
-        requires:
-        - debian_build_2.0.1_hadoop-2.7.3_hive_pyspark
-        filters:
-          branches:
-            only:
-            - master
-
-    - debian_build_2.0.0_hadoop-2.7.3_hive_pyspark
-    - publish_2.0.0_hadoop-2.7.3_hive_pyspark:
-        requires:
-        - debian_build_2.0.0_hadoop-2.7.3_hive_pyspark
-        filters:
-          branches:
-            only:
-            - master
-
-
-  alpine_build_and_publish:
+  debian_build_and_publish_spark-2.3.3_hadoop-2.7.3_hive_pyspark:
     jobs:
-
-    - alpine_build_2.4.0_hadoop-3.1.0_hive_pyspark
-    - publish_2.4.0_hadoop-3.1.0_hive_pyspark:
+    - debian_build_spark-2.3.3_hadoop-2.7.3_hive_pyspark
+    - debian_publish_spark-2.3.3_hadoop-2.7.3_hive_pyspark:
         requires:
-        - alpine_build_2.4.0_hadoop-3.1.0_hive_pyspark
+        - debian_build_spark-2.3.3_hadoop-2.7.3_hive_pyspark
         filters:
           branches:
             only:
             - master
 
-    - alpine_build_2.3.3_hadoop-2.7.3_hive_pyspark
-    - publish_2.3.3_hadoop-2.7.3_hive_pyspark:
+  debian_build_and_publish_spark-2.3.2_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - debian_build_spark-2.3.2_hadoop-2.7.3_hive_pyspark
+    - debian_publish_spark-2.3.2_hadoop-2.7.3_hive_pyspark:
         requires:
-        - alpine_build_2.3.3_hadoop-2.7.3_hive_pyspark
+        - debian_build_spark-2.3.2_hadoop-2.7.3_hive_pyspark
         filters:
           branches:
             only:
             - master
 
-    - alpine_build_2.3.2_hadoop-2.7.3_hive_pyspark
-    - publish_2.3.2_hadoop-2.7.3_hive_pyspark:
+  debian_build_and_publish_spark-2.3.1_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - debian_build_spark-2.3.1_hadoop-2.7.3_hive_pyspark
+    - debian_publish_spark-2.3.1_hadoop-2.7.3_hive_pyspark:
         requires:
-        - alpine_build_2.3.2_hadoop-2.7.3_hive_pyspark
+        - debian_build_spark-2.3.1_hadoop-2.7.3_hive_pyspark
         filters:
           branches:
             only:
             - master
 
-    - alpine_build_2.3.1_hadoop-2.7.3_hive_pyspark
-    - publish_2.3.1_hadoop-2.7.3_hive_pyspark:
+  debian_build_and_publish_spark-2.3.0_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - debian_build_spark-2.3.0_hadoop-2.7.3_hive_pyspark
+    - debian_publish_spark-2.3.0_hadoop-2.7.3_hive_pyspark:
         requires:
-        - alpine_build_2.3.1_hadoop-2.7.3_hive_pyspark
+        - debian_build_spark-2.3.0_hadoop-2.7.3_hive_pyspark
         filters:
           branches:
             only:
             - master
 
-    - alpine_build_2.3.0_hadoop-2.7.3_hive_pyspark
-    - publish_2.3.0_hadoop-2.7.3_hive_pyspark:
+  debian_build_and_publish_spark-2.2.3_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - debian_build_spark-2.2.3_hadoop-2.7.3_hive_pyspark
+    - debian_publish_spark-2.2.3_hadoop-2.7.3_hive_pyspark:
         requires:
-        - alpine_build_2.3.0_hadoop-2.7.3_hive_pyspark
+        - debian_build_spark-2.2.3_hadoop-2.7.3_hive_pyspark
         filters:
           branches:
             only:
             - master
 
-    - alpine_build_2.2.3_hadoop-2.7.3_hive_pyspark
-    - publish_2.2.3_hadoop-2.7.3_hive_pyspark:
+  debian_build_and_publish_spark-2.2.2_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - debian_build_spark-2.2.2_hadoop-2.7.3_hive_pyspark
+    - debian_publish_spark-2.2.2_hadoop-2.7.3_hive_pyspark:
         requires:
-        - alpine_build_2.2.3_hadoop-2.7.3_hive_pyspark
+        - debian_build_spark-2.2.2_hadoop-2.7.3_hive_pyspark
         filters:
           branches:
             only:
             - master
 
-    - alpine_build_2.2.2_hadoop-2.7.3_hive_pyspark
-    - publish_2.2.2_hadoop-2.7.3_hive_pyspark:
+  debian_build_and_publish_spark-2.2.1_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - debian_build_spark-2.2.1_hadoop-2.7.3_hive_pyspark
+    - debian_publish_spark-2.2.1_hadoop-2.7.3_hive_pyspark:
         requires:
-        - alpine_build_2.2.2_hadoop-2.7.3_hive_pyspark
+        - debian_build_spark-2.2.1_hadoop-2.7.3_hive_pyspark
         filters:
           branches:
             only:
             - master
 
-    - alpine_build_2.2.1_hadoop-2.7.3_hive_pyspark
-    - publish_2.2.1_hadoop-2.7.3_hive_pyspark:
+  debian_build_and_publish_spark-2.2.0_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - debian_build_spark-2.2.0_hadoop-2.7.3_hive_pyspark
+    - debian_publish_spark-2.2.0_hadoop-2.7.3_hive_pyspark:
         requires:
-        - alpine_build_2.2.1_hadoop-2.7.3_hive_pyspark
+        - debian_build_spark-2.2.0_hadoop-2.7.3_hive_pyspark
         filters:
           branches:
             only:
             - master
 
-    - alpine_build_2.2.0_hadoop-2.7.3_hive_pyspark
-    - publish_2.2.0_hadoop-2.7.3_hive_pyspark:
+  debian_build_and_publish_spark-2.1.3_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - debian_build_spark-2.1.3_hadoop-2.7.3_hive_pyspark
+    - debian_publish_spark-2.1.3_hadoop-2.7.3_hive_pyspark:
         requires:
-        - alpine_build_2.2.0_hadoop-2.7.3_hive_pyspark
+        - debian_build_spark-2.1.3_hadoop-2.7.3_hive_pyspark
         filters:
           branches:
             only:
             - master
 
-    - alpine_build_2.1.3_hadoop-2.7.3_hive_pyspark
-    - publish_2.1.3_hadoop-2.7.3_hive_pyspark:
+  debian_build_and_publish_spark-2.1.2_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - debian_build_spark-2.1.2_hadoop-2.7.3_hive_pyspark
+    - debian_publish_spark-2.1.2_hadoop-2.7.3_hive_pyspark:
         requires:
-        - alpine_build_2.1.3_hadoop-2.7.3_hive_pyspark
+        - debian_build_spark-2.1.2_hadoop-2.7.3_hive_pyspark
         filters:
           branches:
             only:
             - master
 
-    - alpine_build_2.1.2_hadoop-2.7.3_hive_pyspark
-    - publish_2.1.2_hadoop-2.7.3_hive_pyspark:
+  debian_build_and_publish_spark-2.1.1_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - debian_build_spark-2.1.1_hadoop-2.7.3_hive_pyspark
+    - debian_publish_spark-2.1.1_hadoop-2.7.3_hive_pyspark:
         requires:
-        - alpine_build_2.1.2_hadoop-2.7.3_hive_pyspark
+        - debian_build_spark-2.1.1_hadoop-2.7.3_hive_pyspark
         filters:
           branches:
             only:
             - master
 
-    - alpine_build_2.1.1_hadoop-2.7.3_hive_pyspark
-    - publish_2.1.1_hadoop-2.7.3_hive_pyspark:
+  debian_build_and_publish_spark-2.1.0_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - debian_build_spark-2.1.0_hadoop-2.7.3_hive_pyspark
+    - debian_publish_spark-2.1.0_hadoop-2.7.3_hive_pyspark:
         requires:
-        - alpine_build_2.1.1_hadoop-2.7.3_hive_pyspark
+        - debian_build_spark-2.1.0_hadoop-2.7.3_hive_pyspark
         filters:
           branches:
             only:
             - master
 
-    - alpine_build_2.1.0_hadoop-2.7.3_hive_pyspark
-    - publish_2.1.0_hadoop-2.7.3_hive_pyspark:
+  debian_build_and_publish_spark-2.0.2_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - debian_build_spark-2.0.2_hadoop-2.7.3_hive_pyspark
+    - debian_publish_spark-2.0.2_hadoop-2.7.3_hive_pyspark:
         requires:
-        - alpine_build_2.1.0_hadoop-2.7.3_hive_pyspark
+        - debian_build_spark-2.0.2_hadoop-2.7.3_hive_pyspark
         filters:
           branches:
             only:
             - master
 
-    - alpine_build_2.0.2_hadoop-2.7.3_hive_pyspark
-    - publish_2.0.2_hadoop-2.7.3_hive_pyspark:
+  debian_build_and_publish_spark-2.0.1_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - debian_build_spark-2.0.1_hadoop-2.7.3_hive_pyspark
+    - debian_publish_spark-2.0.1_hadoop-2.7.3_hive_pyspark:
         requires:
-        - alpine_build_2.0.2_hadoop-2.7.3_hive_pyspark
+        - debian_build_spark-2.0.1_hadoop-2.7.3_hive_pyspark
         filters:
           branches:
             only:
             - master
 
-    - alpine_build_2.0.1_hadoop-2.7.3_hive_pyspark
-    - publish_2.0.1_hadoop-2.7.3_hive_pyspark:
+  debian_build_and_publish_spark-2.0.0_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - debian_build_spark-2.0.0_hadoop-2.7.3_hive_pyspark
+    - debian_publish_spark-2.0.0_hadoop-2.7.3_hive_pyspark:
         requires:
-        - alpine_build_2.0.1_hadoop-2.7.3_hive_pyspark
+        - debian_build_spark-2.0.0_hadoop-2.7.3_hive_pyspark
         filters:
           branches:
             only:
             - master
 
-    - alpine_build_2.0.0_hadoop-2.7.3_hive_pyspark
-    - publish_2.0.0_hadoop-2.7.3_hive_pyspark:
+
+  alpine_build_and_publish_spark-2.4.0_hadoop-3.1.0_hive_pyspark:
+    jobs:
+    - alpine_build_spark-2.4.0_hadoop-3.1.0_hive_pyspark
+    - alpine_publish_spark-2.4.0_hadoop-3.1.0_hive_pyspark:
         requires:
-        - alpine_build_2.0.0_hadoop-2.7.3_hive_pyspark
+        - alpine_build_spark-2.4.0_hadoop-3.1.0_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+  alpine_build_and_publish_spark-2.3.3_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - alpine_build_spark-2.3.3_hadoop-2.7.3_hive_pyspark
+    - alpine_publish_spark-2.3.3_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_spark-2.3.3_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+  alpine_build_and_publish_spark-2.3.2_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - alpine_build_spark-2.3.2_hadoop-2.7.3_hive_pyspark
+    - alpine_publish_spark-2.3.2_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_spark-2.3.2_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+  alpine_build_and_publish_spark-2.3.1_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - alpine_build_spark-2.3.1_hadoop-2.7.3_hive_pyspark
+    - alpine_publish_spark-2.3.1_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_spark-2.3.1_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+  alpine_build_and_publish_spark-2.3.0_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - alpine_build_spark-2.3.0_hadoop-2.7.3_hive_pyspark
+    - alpine_publish_spark-2.3.0_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_spark-2.3.0_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+  alpine_build_and_publish_spark-2.2.3_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - alpine_build_spark-2.2.3_hadoop-2.7.3_hive_pyspark
+    - alpine_publish_spark-2.2.3_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_spark-2.2.3_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+  alpine_build_and_publish_spark-2.2.2_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - alpine_build_spark-2.2.2_hadoop-2.7.3_hive_pyspark
+    - alpine_publish_spark-2.2.2_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_spark-2.2.2_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+  alpine_build_and_publish_spark-2.2.1_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - alpine_build_spark-2.2.1_hadoop-2.7.3_hive_pyspark
+    - alpine_publish_spark-2.2.1_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_spark-2.2.1_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+  alpine_build_and_publish_spark-2.2.0_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - alpine_build_spark-2.2.0_hadoop-2.7.3_hive_pyspark
+    - alpine_publish_spark-2.2.0_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_spark-2.2.0_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+  alpine_build_and_publish_spark-2.1.3_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - alpine_build_spark-2.1.3_hadoop-2.7.3_hive_pyspark
+    - alpine_publish_spark-2.1.3_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_spark-2.1.3_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+  alpine_build_and_publish_spark-2.1.2_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - alpine_build_spark-2.1.2_hadoop-2.7.3_hive_pyspark
+    - alpine_publish_spark-2.1.2_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_spark-2.1.2_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+  alpine_build_and_publish_spark-2.1.1_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - alpine_build_spark-2.1.1_hadoop-2.7.3_hive_pyspark
+    - alpine_publish_spark-2.1.1_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_spark-2.1.1_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+  alpine_build_and_publish_spark-2.1.0_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - alpine_build_spark-2.1.0_hadoop-2.7.3_hive_pyspark
+    - alpine_publish_spark-2.1.0_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_spark-2.1.0_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+  alpine_build_and_publish_spark-2.0.2_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - alpine_build_spark-2.0.2_hadoop-2.7.3_hive_pyspark
+    - alpine_publish_spark-2.0.2_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_spark-2.0.2_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+  alpine_build_and_publish_spark-2.0.1_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - alpine_build_spark-2.0.1_hadoop-2.7.3_hive_pyspark
+    - alpine_publish_spark-2.0.1_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_spark-2.0.1_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+  alpine_build_and_publish_spark-2.0.0_hadoop-2.7.3_hive_pyspark:
+    jobs:
+    - alpine_build_spark-2.0.0_hadoop-2.7.3_hive_pyspark
+    - alpine_publish_spark-2.0.0_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_spark-2.0.0_hadoop-2.7.3_hive_pyspark
         filters:
           branches:
             only:
