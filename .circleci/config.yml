@@ -24,7 +24,7 @@ shared_build: &shared_build
         DOCKER_RELEASE_IMAGE_DIGEST="$(docker pull ${RELEASE_IMAGE} | grep 'Digest:' | sed -E 's/Digest: (.+)/\1/')"
         echo ${DOCKER_RELEASE_IMAGE_DIGEST} >> /tmp/cache-hash
 
-        DOCKERFILE_HASH=$(cat Dockerfile-${DIST} | md5sum | cut -d' ' -f1)
+        DOCKERFILE_HASH=$(cat ${DIST}/Dockerfile | md5sum | cut -d' ' -f1)
         echo ${DOCKERFILE_HASH} >> /tmp/cache-hash
 
         echo ${SPARK_VERSION} >> /tmp/cache-hash
@@ -51,7 +51,7 @@ shared_build: &shared_build
         echo "${IMAGE_NAME}:${TAG_NAME}" > /tmp/artifacts/image-tag-name
 
         if [ ! -f /tmp/artifacts/docker-image.tar ]; then
-          docker build . -f Dockerfile-${DIST} -t ${IMAGE_NAME}:ref \
+          docker build ${DIST}/ -t ${IMAGE_NAME}:ref \
             --build-arg SPARK_VERSION=${SPARK_VERSION} \
             --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
             --build-arg WITH_HIVE=${WITH_HIVE} \
@@ -100,7 +100,8 @@ shared_publish: &shared_publish
 #
 
 jobs:
-  debian_build:
+
+  debian_build_spark-2.4.0_hadoop-3.1.0_hive_pyspark:
     <<: *shared_build
     docker:
     - image: circleci/python:3-stretch
@@ -112,7 +113,204 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: debian
-  alpine_build:
+
+  debian_build_spark-2.3.3_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-slim
+        RELEASE_IMAGE: openjdk:8-jre-slim
+        SPARK_VERSION: 2.3.3
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: debian
+
+  debian_build_spark-2.3.2_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-slim
+        RELEASE_IMAGE: openjdk:8-jre-slim
+        SPARK_VERSION: 2.3.2
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: debian
+
+  debian_build_spark-2.3.1_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-slim
+        RELEASE_IMAGE: openjdk:8-jre-slim
+        SPARK_VERSION: 2.3.1
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: debian
+
+  debian_build_spark-2.3.0_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-slim
+        RELEASE_IMAGE: openjdk:8-jre-slim
+        SPARK_VERSION: 2.3.0
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: debian
+
+  debian_build_spark-2.2.3_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-slim
+        RELEASE_IMAGE: openjdk:8-jre-slim
+        SPARK_VERSION: 2.2.3
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: debian
+
+  debian_build_spark-2.2.2_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-slim
+        RELEASE_IMAGE: openjdk:8-jre-slim
+        SPARK_VERSION: 2.2.2
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: debian
+
+  debian_build_spark-2.2.1_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-slim
+        RELEASE_IMAGE: openjdk:8-jre-slim
+        SPARK_VERSION: 2.2.1
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: debian
+
+  debian_build_spark-2.2.0_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-slim
+        RELEASE_IMAGE: openjdk:8-jre-slim
+        SPARK_VERSION: 2.2.0
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: debian
+
+  debian_build_spark-2.1.3_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-slim
+        RELEASE_IMAGE: openjdk:8-jre-slim
+        SPARK_VERSION: 2.1.3
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: debian
+
+  debian_build_spark-2.1.2_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-slim
+        RELEASE_IMAGE: openjdk:8-jre-slim
+        SPARK_VERSION: 2.1.2
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: debian
+
+  debian_build_spark-2.1.1_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-slim
+        RELEASE_IMAGE: openjdk:8-jre-slim
+        SPARK_VERSION: 2.1.1
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: debian
+
+  debian_build_spark-2.1.0_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-slim
+        RELEASE_IMAGE: openjdk:8-jre-slim
+        SPARK_VERSION: 2.1.0
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: debian
+
+  debian_build_spark-2.0.2_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-slim
+        RELEASE_IMAGE: openjdk:8-jre-slim
+        SPARK_VERSION: 2.0.2
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: debian
+
+  debian_build_spark-2.0.1_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-slim
+        RELEASE_IMAGE: openjdk:8-jre-slim
+        SPARK_VERSION: 2.0.1
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: debian
+
+  debian_build_spark-2.0.0_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-slim
+        RELEASE_IMAGE: openjdk:8-jre-slim
+        SPARK_VERSION: 2.0.0
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: debian
+
+
+  alpine_build_spark-2.4.0_hadoop-3.1.0_hive_pyspark:
     <<: *shared_build
     docker:
     - image: circleci/python:3-stretch
@@ -124,6 +322,202 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: alpine
+
+  alpine_build_spark-2.3.3_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-alpine
+        RELEASE_IMAGE: openjdk:8-jre-alpine
+        SPARK_VERSION: 2.3.3
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: alpine
+
+  alpine_build_spark-2.3.2_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-alpine
+        RELEASE_IMAGE: openjdk:8-jre-alpine
+        SPARK_VERSION: 2.3.2
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: alpine
+
+  alpine_build_spark-2.3.1_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-alpine
+        RELEASE_IMAGE: openjdk:8-jre-alpine
+        SPARK_VERSION: 2.3.1
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: alpine
+
+  alpine_build_spark-2.3.0_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-alpine
+        RELEASE_IMAGE: openjdk:8-jre-alpine
+        SPARK_VERSION: 2.3.0
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: alpine
+
+  alpine_build_spark-2.2.3_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-alpine
+        RELEASE_IMAGE: openjdk:8-jre-alpine
+        SPARK_VERSION: 2.2.3
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: alpine
+
+  alpine_build_spark-2.2.2_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-alpine
+        RELEASE_IMAGE: openjdk:8-jre-alpine
+        SPARK_VERSION: 2.2.2
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: alpine
+
+  alpine_build_spark-2.2.1_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-alpine
+        RELEASE_IMAGE: openjdk:8-jre-alpine
+        SPARK_VERSION: 2.2.1
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: alpine
+
+  alpine_build_spark-2.2.0_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-alpine
+        RELEASE_IMAGE: openjdk:8-jre-alpine
+        SPARK_VERSION: 2.2.0
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: alpine
+
+  alpine_build_spark-2.1.3_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-alpine
+        RELEASE_IMAGE: openjdk:8-jre-alpine
+        SPARK_VERSION: 2.1.3
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: alpine
+
+  alpine_build_spark-2.1.2_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-alpine
+        RELEASE_IMAGE: openjdk:8-jre-alpine
+        SPARK_VERSION: 2.1.2
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: alpine
+
+  alpine_build_spark-2.1.1_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-alpine
+        RELEASE_IMAGE: openjdk:8-jre-alpine
+        SPARK_VERSION: 2.1.1
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: alpine
+
+  alpine_build_spark-2.1.0_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-alpine
+        RELEASE_IMAGE: openjdk:8-jre-alpine
+        SPARK_VERSION: 2.1.0
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: alpine
+
+  alpine_build_spark-2.0.2_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-alpine
+        RELEASE_IMAGE: openjdk:8-jre-alpine
+        SPARK_VERSION: 2.0.2
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: alpine
+
+  alpine_build_spark-2.0.1_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-alpine
+        RELEASE_IMAGE: openjdk:8-jre-alpine
+        SPARK_VERSION: 2.0.1
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: alpine
+
+  alpine_build_spark-2.0.0_hadoop-2.7.3_hive_pyspark:
+    <<: *shared_build
+    docker:
+    - image: circleci/python:3-stretch
+      environment:
+        BUILDER_IMAGE: openjdk:8-jdk-alpine
+        RELEASE_IMAGE: openjdk:8-jre-alpine
+        SPARK_VERSION: 2.0.0
+        HADOOP_VERSION: 2.7.3
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: alpine
+
   publish:
     <<: *shared_publish
 
@@ -131,21 +525,296 @@ workflows:
   version: 2
   debian_build_and_publish:
     jobs:
-    - debian_build
-    - publish:
+
+    - debian_build_2.4.0_hadoop-3.1.0_hive_pyspark
+    - publish_2.4.0_hadoop-3.1.0_hive_pyspark:
         requires:
-          - debian_build
+        - debian_build_2.4.0_hadoop-3.1.0_hive_pyspark
         filters:
           branches:
             only:
             - master
+
+    - debian_build_2.3.3_hadoop-2.7.3_hive_pyspark
+    - publish_2.3.3_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - debian_build_2.3.3_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - debian_build_2.3.2_hadoop-2.7.3_hive_pyspark
+    - publish_2.3.2_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - debian_build_2.3.2_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - debian_build_2.3.1_hadoop-2.7.3_hive_pyspark
+    - publish_2.3.1_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - debian_build_2.3.1_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - debian_build_2.3.0_hadoop-2.7.3_hive_pyspark
+    - publish_2.3.0_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - debian_build_2.3.0_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - debian_build_2.2.3_hadoop-2.7.3_hive_pyspark
+    - publish_2.2.3_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - debian_build_2.2.3_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - debian_build_2.2.2_hadoop-2.7.3_hive_pyspark
+    - publish_2.2.2_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - debian_build_2.2.2_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - debian_build_2.2.1_hadoop-2.7.3_hive_pyspark
+    - publish_2.2.1_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - debian_build_2.2.1_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - debian_build_2.2.0_hadoop-2.7.3_hive_pyspark
+    - publish_2.2.0_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - debian_build_2.2.0_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - debian_build_2.1.3_hadoop-2.7.3_hive_pyspark
+    - publish_2.1.3_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - debian_build_2.1.3_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - debian_build_2.1.2_hadoop-2.7.3_hive_pyspark
+    - publish_2.1.2_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - debian_build_2.1.2_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - debian_build_2.1.1_hadoop-2.7.3_hive_pyspark
+    - publish_2.1.1_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - debian_build_2.1.1_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - debian_build_2.1.0_hadoop-2.7.3_hive_pyspark
+    - publish_2.1.0_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - debian_build_2.1.0_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - debian_build_2.0.2_hadoop-2.7.3_hive_pyspark
+    - publish_2.0.2_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - debian_build_2.0.2_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - debian_build_2.0.1_hadoop-2.7.3_hive_pyspark
+    - publish_2.0.1_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - debian_build_2.0.1_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - debian_build_2.0.0_hadoop-2.7.3_hive_pyspark
+    - publish_2.0.0_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - debian_build_2.0.0_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+
   alpine_build_and_publish:
     jobs:
-    - alpine_build
-    - publish:
+
+    - alpine_build_2.4.0_hadoop-3.1.0_hive_pyspark
+    - publish_2.4.0_hadoop-3.1.0_hive_pyspark:
         requires:
-          - alpine_build
+        - alpine_build_2.4.0_hadoop-3.1.0_hive_pyspark
         filters:
           branches:
             only:
             - master
+
+    - alpine_build_2.3.3_hadoop-2.7.3_hive_pyspark
+    - publish_2.3.3_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_2.3.3_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - alpine_build_2.3.2_hadoop-2.7.3_hive_pyspark
+    - publish_2.3.2_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_2.3.2_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - alpine_build_2.3.1_hadoop-2.7.3_hive_pyspark
+    - publish_2.3.1_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_2.3.1_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - alpine_build_2.3.0_hadoop-2.7.3_hive_pyspark
+    - publish_2.3.0_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_2.3.0_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - alpine_build_2.2.3_hadoop-2.7.3_hive_pyspark
+    - publish_2.2.3_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_2.2.3_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - alpine_build_2.2.2_hadoop-2.7.3_hive_pyspark
+    - publish_2.2.2_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_2.2.2_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - alpine_build_2.2.1_hadoop-2.7.3_hive_pyspark
+    - publish_2.2.1_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_2.2.1_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - alpine_build_2.2.0_hadoop-2.7.3_hive_pyspark
+    - publish_2.2.0_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_2.2.0_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - alpine_build_2.1.3_hadoop-2.7.3_hive_pyspark
+    - publish_2.1.3_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_2.1.3_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - alpine_build_2.1.2_hadoop-2.7.3_hive_pyspark
+    - publish_2.1.2_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_2.1.2_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - alpine_build_2.1.1_hadoop-2.7.3_hive_pyspark
+    - publish_2.1.1_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_2.1.1_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - alpine_build_2.1.0_hadoop-2.7.3_hive_pyspark
+    - publish_2.1.0_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_2.1.0_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - alpine_build_2.0.2_hadoop-2.7.3_hive_pyspark
+    - publish_2.0.2_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_2.0.2_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - alpine_build_2.0.1_hadoop-2.7.3_hive_pyspark
+    - publish_2.0.1_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_2.0.1_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+
+    - alpine_build_2.0.0_hadoop-2.7.3_hive_pyspark
+    - publish_2.0.0_hadoop-2.7.3_hive_pyspark:
+        requires:
+        - alpine_build_2.0.0_hadoop-2.7.3_hive_pyspark
+        filters:
+          branches:
+            only:
+            - master
+

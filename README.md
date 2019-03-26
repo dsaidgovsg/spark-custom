@@ -16,3 +16,23 @@ The current build arguments are supported:
   `1.2.1-spark2`.
 - `WITH_PYSPARK`: Defaults to `"true"`. Installs both Python 2 and 3 into the
   image, together with the standard `pyspark` package.
+
+## Generation of `.circleci/config.yml`
+
+This requires `python3` and `pip`. This will allow the installation of
+`jinj2-cli`.
+
+Run the following:
+
+```bash
+python3 -m pip install --user jinja2-cli[yaml]
+```
+
+Once installed, to generate the new `.circleci/config.yml` file, run:
+
+```bash
+jinja2 .circleci/config.yml.tmpl vars.yml > .circleci/config.yml
+```
+
+As such, it is generally only necessary to update `vars.yml` to generate for
+new Spark builds.

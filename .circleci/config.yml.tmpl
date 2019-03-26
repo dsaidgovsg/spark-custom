@@ -105,7 +105,7 @@ jobs:
     <<: *shared_build
     docker:
     - image: circleci/python:3-stretch
-      environment: &debian_common_env
+      environment:
         BUILDER_IMAGE: openjdk:8-jdk-slim
         RELEASE_IMAGE: openjdk:8-jre-slim
         SPARK_VERSION: {{ v.spark }}
@@ -114,7 +114,6 @@ jobs:
         WITH_PYSPARK: "true"
         DIST: debian
 {% endfor %}
-
 {% for v in versions %}
   alpine_build_spark-{{ v.spark }}_hadoop-{{ v.hadoop }}_hive_pyspark:
     <<: *shared_build
@@ -129,7 +128,6 @@ jobs:
         WITH_PYSPARK: "true"
         DIST: alpine
 {% endfor %}
-
   publish:
     <<: *shared_publish
 
