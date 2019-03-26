@@ -53,7 +53,7 @@ RUN set -euo pipefail && \
         ${HIVE_INSTALL_FLAG} \
         -Dhadoop.version=${HADOOP_VERSION} \
         -DskipTests \
-        -q \
+        > /dev/null \
         ; \
     mv /spark/dist/ ${SPARK_HOME}; \
     # Replace Hive for Hadoop 3 since Hive 1.2.1 does not officially support Hadoop 3
