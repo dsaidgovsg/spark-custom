@@ -38,7 +38,7 @@ shared_build: &shared_build
 
   - restore_cache:
       keys:
-      - v1-spark-custom-{{ checksum "/tmp/cache-hash" }}
+      - v1-spark-custom-{{'{{'}} checksum "/tmp/cache-hash" {{'}}'}}
   - run:
       name: Create artifacts directory
       command: mkdir -p /tmp/artifacts
@@ -61,7 +61,7 @@ shared_build: &shared_build
           docker save ${IMAGE_NAME}:${TAG_NAME} -o /tmp/artifacts/docker-image.tar
         fi
   - save_cache:
-      key: v1-spark-custom-{{ checksum "/tmp/cache-hash" }}
+      key: v1-spark-custom-{{'{{'}} checksum "/tmp/cache-hash" {{'}}'}}
       paths:
       - /tmp/artifacts
 
@@ -128,6 +128,8 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
         DIST: alpine
+{% endfor %}
+
   publish:
     <<: *shared_publish
 
