@@ -38,11 +38,12 @@ versions:
 - spark:  2.1.0
   hadoop: 2.7.3
 
-- spark:  2.0.2
-  hadoop: 2.7.3
+# These do not support the install step the same way the newer versions do
+# - spark:  2.0.2
+#   hadoop: 2.7.3
 
-- spark:  2.0.1
-  hadoop: 2.7.3
+# - spark:  2.0.1
+#   hadoop: 2.7.3
 
-- spark:  2.0.0
-  hadoop: 2.7.3
+# - spark:  2.0.0
+#   hadoop: 2.7.3

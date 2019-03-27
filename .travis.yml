@@ -112,30 +112,6 @@ matrix:
     - WITH_PYSPARK=true
     - DIST=debian
 
-  - services: docker
-    env:
-    - SPARK_VERSION=2.0.2
-    - HADOOP_VERSION=2.7.3
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=debian
-
-  - services: docker
-    env:
-    - SPARK_VERSION=2.0.1
-    - HADOOP_VERSION=2.7.3
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=debian
-
-  - services: docker
-    env:
-    - SPARK_VERSION=2.0.0
-    - HADOOP_VERSION=2.7.3
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=debian
-
   # Alpine builds
 
   - services: docker
@@ -242,30 +218,6 @@ matrix:
     - WITH_PYSPARK=true
     - DIST=alpine
 
-  - services: docker
-    env:
-    - SPARK_VERSION=2.0.2
-    - HADOOP_VERSION=2.7.3
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=alpine
-
-  - services: docker
-    env:
-    - SPARK_VERSION=2.0.1
-    - HADOOP_VERSION=2.7.3
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=alpine
-
-  - services: docker
-    env:
-    - SPARK_VERSION=2.0.0
-    - HADOOP_VERSION=2.7.3
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=alpine
-
   
 script:
 - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
@@ -280,10 +232,8 @@ script:
     --build-arg WITH_HIVE=${WITH_HIVE} \
     --build-arg WITH_PYSPARK=${WITH_PYSPARK} \
     ;
-- |-
-  if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then
-    docker push ${FULL_IMAGE_NAME};
-  fi
+# Just push, doesn't matter if it's TRAVIS_PULL_REQUEST false/true
+- docker push ${FULL_IMAGE_NAME};
 
 branches:
   only:
