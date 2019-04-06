@@ -20,7 +20,7 @@ The current build arguments are supported:
 ## Generation of `.travis.yml`
 
 This requires `python3` and `pip`. This will allow the installation of
-`jinj2-cli`.
+`jinja2-cli`.
 
 Run the following:
 
