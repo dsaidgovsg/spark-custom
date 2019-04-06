@@ -12,8 +12,8 @@ matrix:
     env:
     - SPARK_VERSION={{ v.spark }}
     - HADOOP_VERSION={{ v.hadoop }}
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
+    - WITH_HIVE={{ v.with_hive }}
+    - WITH_PYSPARK={{ v.with_pyspark }}
     - DIST=debian
 {% endfor %}
   # Alpine builds
@@ -22,8 +22,8 @@ matrix:
     env:
     - SPARK_VERSION={{ v.spark }}
     - HADOOP_VERSION={{ v.hadoop }}
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
+    - WITH_HIVE={{ v.with_hive }}
+    - WITH_PYSPARK={{ v.with_pyspark }}
     - DIST=alpine
 {% endfor %}
   

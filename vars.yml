@@ -1,9 +1,16 @@
 versions:
+# Spark version 2.0.z does not have pyspark distribution
 - spark:  2.0.2
   hadoop: 2.7.3
+  with_hive: "true"
+  with_pyspark: "false"
 
-# - spark:  2.0.1
-#   hadoop: 2.7.3
+- spark:  2.0.1
+  hadoop: 2.7.3
+  with_hive: "true"
+  with_pyspark: "false"
 
 - spark:  2.0.0
   hadoop: 2.7.3
+  with_hive: "true"
+  with_pyspark: "false"

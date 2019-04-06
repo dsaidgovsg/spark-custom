@@ -13,7 +13,15 @@ matrix:
     - SPARK_VERSION=2.0.2
     - HADOOP_VERSION=2.7.3
     - WITH_HIVE=true
-    - WITH_PYSPARK=true
+    - WITH_PYSPARK=false
+    - DIST=debian
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.0.1
+    - HADOOP_VERSION=2.7.3
+    - WITH_HIVE=true
+    - WITH_PYSPARK=false
     - DIST=debian
 
   - services: docker
@@ -21,7 +29,7 @@ matrix:
     - SPARK_VERSION=2.0.0
     - HADOOP_VERSION=2.7.3
     - WITH_HIVE=true
-    - WITH_PYSPARK=true
+    - WITH_PYSPARK=false
     - DIST=debian
 
   # Alpine builds
@@ -31,7 +39,15 @@ matrix:
     - SPARK_VERSION=2.0.2
     - HADOOP_VERSION=2.7.3
     - WITH_HIVE=true
-    - WITH_PYSPARK=true
+    - WITH_PYSPARK=false
+    - DIST=alpine
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.0.1
+    - HADOOP_VERSION=2.7.3
+    - WITH_HIVE=true
+    - WITH_PYSPARK=false
     - DIST=alpine
 
   - services: docker
@@ -39,7 +55,7 @@ matrix:
     - SPARK_VERSION=2.0.0
     - HADOOP_VERSION=2.7.3
     - WITH_HIVE=true
-    - WITH_PYSPARK=true
+    - WITH_PYSPARK=false
     - DIST=alpine
 
   
