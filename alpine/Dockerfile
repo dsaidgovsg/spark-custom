@@ -45,7 +45,7 @@ RUN set -euo pipefail && \
         python2 \
         py-setuptools \
         ; \
-    PYSPARK_INSTALL_FLAG=$(if [ "${WITH_HIVE}" = "true" ]; then echo "--pip"; fi); \
+    PYSPARK_INSTALL_FLAG=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo "--pip"; fi); \
     # Actual installation and release packaging
     ./dev/make-distribution.sh \
         ${PYSPARK_INSTALL_FLAG} --name spark-${SPARK_VERSION}_hadoop-${HADOOP_VERSION} \
