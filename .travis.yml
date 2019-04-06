@@ -10,8 +10,32 @@ matrix:
 
   - services: docker
     env:
+    - SPARK_VERSION=2.4.1
+    - HADOOP_VERSION=3.1.0
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.1
+    - HADOOP_VERSION=2.7.3
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+
+  - services: docker
+    env:
     - SPARK_VERSION=2.4.0
     - HADOOP_VERSION=3.1.0
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.0
+    - HADOOP_VERSION=2.7.3
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
@@ -110,14 +134,62 @@ matrix:
     - HADOOP_VERSION=2.7.3
     - WITH_HIVE=true
     - WITH_PYSPARK=true
+    - DIST=debian
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.0.2
+    - HADOOP_VERSION=2.7.3
+    - WITH_HIVE=true
+    - WITH_PYSPARK=false
+    - DIST=debian
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.0.1
+    - HADOOP_VERSION=2.7.3
+    - WITH_HIVE=true
+    - WITH_PYSPARK=false
+    - DIST=debian
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.0.0
+    - HADOOP_VERSION=2.7.3
+    - WITH_HIVE=true
+    - WITH_PYSPARK=false
     - DIST=debian
 
   # Alpine builds
 
   - services: docker
     env:
+    - SPARK_VERSION=2.4.1
+    - HADOOP_VERSION=3.1.0
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.1
+    - HADOOP_VERSION=2.7.3
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+
+  - services: docker
+    env:
     - SPARK_VERSION=2.4.0
     - HADOOP_VERSION=3.1.0
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.0
+    - HADOOP_VERSION=2.7.3
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
@@ -216,6 +288,30 @@ matrix:
     - HADOOP_VERSION=2.7.3
     - WITH_HIVE=true
     - WITH_PYSPARK=true
+    - DIST=alpine
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.0.2
+    - HADOOP_VERSION=2.7.3
+    - WITH_HIVE=true
+    - WITH_PYSPARK=false
+    - DIST=alpine
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.0.1
+    - HADOOP_VERSION=2.7.3
+    - WITH_HIVE=true
+    - WITH_PYSPARK=false
+    - DIST=alpine
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.0.0
+    - HADOOP_VERSION=2.7.3
+    - WITH_HIVE=true
+    - WITH_PYSPARK=false
     - DIST=alpine
 
   

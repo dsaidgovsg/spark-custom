@@ -20,7 +20,7 @@ The current build arguments are supported:
 ## Generation of `.travis.yml`
 
 This requires `python3` and `pip`. This will allow the installation of
-`jinj2-cli`.
+`jinja2-cli`.
 
 Run the following:
 
@@ -31,7 +31,7 @@ python3 -m pip install --user jinja2-cli[yaml]
 Once installed, to generate the new `.travis.yml` file, run:
 
 ```bash
-jinja2 .travis.yml.tmpl vars.yml > .travis.yml
+./apply-vars.sh
 ```
 
 As such, it is generally only necessary to update `vars.yml` to generate for
