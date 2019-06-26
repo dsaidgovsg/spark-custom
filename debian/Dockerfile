@@ -20,6 +20,9 @@ ENV SPARK_VERSION ${SPARK_VERSION}
 ARG HADOOP_VERSION
 ENV HADOOP_VERSION ${HADOOP_VERSION}
 
+# Kubernetes is only supported >= Spark 2.3
+ARG WITH_KUBERNETES="false"
+
 # Hive integration with Spark is always at 1.2.1-spark2
 ARG WITH_HIVE="true"
 ARG WITH_PYSPARK="true"
@@ -38,6 +41,8 @@ RUN set -euo pipefail && \
     git clone https://github.com/apache/spark.git -b v${SPARK_VERSION}; \
     cd /spark; \
     # Spark installation
+    ## Kubernetes prep
+    KUBERNETES_INSTALL_FLAG=$(if [ "${WITH_KUBERNETES}" = "true" ]; then echo "-Pkubernetes"; fi); \
     ## Hive prep
     HIVE_INSTALL_FLAG=$(if [ "${WITH_HIVE}" = "true" ]; then echo "-Phive"; fi); \
     ## Pyspark prep
@@ -50,6 +55,7 @@ RUN set -euo pipefail && \
     ./dev/make-distribution.sh \
         ${PYSPARK_INSTALL_FLAG} --name spark-${SPARK_VERSION}_hadoop-${HADOOP_VERSION} \
         -Phadoop-$(echo ${HADOOP_VERSION} | cut -c 1-3) \
+        ${KUBERNETES_INSTALL_FLAG} \
         ${HIVE_INSTALL_FLAG} \
         -Dhadoop.version=${HADOOP_VERSION} \
         -DskipTests \
