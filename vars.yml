@@ -37,7 +37,19 @@ versions:
 
 - spark:  2.2.3
   hadoop: 2.7.3
+  with_kubernetes: "true"
+  with_hive: "true"
+  with_pyspark: "true"
+
+- spark:  2.2.3
+  hadoop: 2.7.3
   with_kubernetes: "false"
+  with_hive: "true"
+  with_pyspark: "true"
+
+- spark:  2.1.3
+  hadoop: 2.7.3
+  with_kubernetes: "true"
   with_hive: "true"
   with_pyspark: "true"
 
