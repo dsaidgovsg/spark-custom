@@ -7,7 +7,7 @@ env:
 matrix:
   include:
   # Debian builds
-{% for v in versions %}
+{%- for v in versions %}
   - services: docker
     env:
     - SPARK_VERSION={{ v.spark }}
@@ -15,9 +15,10 @@ matrix:
     - WITH_HIVE={{ v.with_hive }}
     - WITH_PYSPARK={{ v.with_pyspark }}
     - DIST=debian
-{% endfor %}
+{%- endfor %}
+
   # Alpine builds
-{% for v in versions %}
+{%- for v in versions %}
   - services: docker
     env:
     - SPARK_VERSION={{ v.spark }}
@@ -25,7 +26,7 @@ matrix:
     - WITH_HIVE={{ v.with_hive }}
     - WITH_PYSPARK={{ v.with_pyspark }}
     - DIST=alpine
-{% endfor %}
+{%- endfor %}
   
 script:
 - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"

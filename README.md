@@ -2,11 +2,16 @@
 
 [![Build Status](https://travis-ci.org/guangie88/spark-custom.svg?branch=master)](https://travis-ci.org/guangie88/spark-custom)
 
-Experimental Dockerfile set-up for custom Spark build releases. Builds for both
-Debian and Alpine.
+Dockerfile set-up for custom Spark build releases. Builds for both Debian and
+Alpine.
 
-This set-up is able to use a fixed-up `hive-exec-1.2.1.spark2.jar` for Hadoop 3
-when using integration with Hive.
+This set-up follows how Spark maintains their releases. As such, it builds for
+the most recent two major.minor versions in the CI. All older versions are
+removed from the list to build, but the already-built images will continue to
+remain in the DockerHub repository and should remain usable.
+
+Also, this set-up is able to use a fixed-up `hive-exec-1.2.1.spark2.jar` for
+Hadoop 3 when using integration with Hive.
 
 The current build arguments are supported:
 
@@ -17,22 +22,12 @@ The current build arguments are supported:
 - `WITH_PYSPARK`: Defaults to `"true"`. Installs both Python 2 and 3 into the
   image, together with the standard `pyspark` package.
 
-## Generation of `.travis.yml`
+## How to Apply Travis Template
 
-This requires `python3` and `pip`. This will allow the installation of
-`jinja2-cli`.
+For Linux user, you can download Tera CLI v0.2 at
+<https://github.com/guangie88/tera-cli/releases> and place it in `PATH`.
 
-Run the following:
+Otherwise, you will need `cargo`, which can be installed via
+[rustup](https://rustup.rs/).
 
-```bash
-python3 -m pip install --user jinja2-cli[yaml]
-```
-
-Once installed, to generate the new `.travis.yml` file, run:
-
-```bash
-./apply-vars.sh
-```
-
-As such, it is generally only necessary to update `vars.yml` to generate for
-new Spark builds.
+Once `cargo` is installed, simply run `cargo install tera-cli --version=^0.2.0`.
