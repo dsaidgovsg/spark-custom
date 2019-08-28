@@ -51,97 +51,89 @@ RUN set -euo pipefail && \
         PY_PATCH_VERSION="${PY_PATCH_NEXT_VERSION}"; \
         PY_PATCH_NEXT_VERSION=$((PY_PATCH_NEXT_VERSION+1)); \
     done; \
-    if [ ${PY_PATCH_VERSION} = "-1" ]; then \
+    if [ "${PY_PATCH_VERSION}" = "-1" ]; then \
         err () { >&2 echo "Python ${PYTHON_VERSION} does not exist for release!"; return $1; }; \
         err 1; \
     fi; \
     echo "Latest version for Python ${PYTHON_VERSION} is ${PYTHON_VERSION}.${PY_PATCH_VERSION}"; \
-    :
-
-RUN set -euo pipefail && \
     cd /tmp; \
     curl -fsLO "https://www.python.org/ftp/python/${PYTHON_VERSION}.${PY_PATCH_VERSION}/Python-${PYTHON_VERSION}.${PY_PATCH_VERSION}.tar.xz"; \
     tar xf "Python-${PYTHON_VERSION}.${PY_PATCH_VERSION}.tar.xz"; \
     cd -; \
     cd "/tmp/Python-${PYTHON_VERSION}.${PY_PATCH_VERSION}"; \
-    ./configure --enable-optimizations --prefix="/opt/python-${PYTHON_VERSION}"; \
+    ./configure --enable-optimizations --prefix="${PYTHON_HOME}"; \
     CORES="$(grep -c ^processor /proc/cpuinfo)"; \
     make -j "${CORES}"; \
     make install; \
+    "${PYTHON_HOME}/bin/python${PYTHON_VERSION}" -m pip install --upgrade pip; \
     cd -; \
+    rm -rf "Python-${PYTHON_VERSION}.${PY_PATCH_VERSION}.tar.xz" "/tmp/Python-${PYTHON_VERSION}.${PY_PATCH_VERSION}"; \
+    # Prep the Spark repo
+    cd /; \
+    git clone https://github.com/apache/spark.git -b v${SPARK_VERSION}; \
+    cd /spark; \
+    # Spark installation
+    ## Hive prep
+    HIVE_INSTALL_FLAG=$(if [ "${WITH_HIVE}" = "true" ]; then echo "-Phive"; fi); \
+    ## Pyspark prep
+    PYSPARK_INSTALL_FLAG=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo "--pip"; fi); \
+    # Actual installation and release packaging
+    ./dev/make-distribution.sh \
+        ${PYSPARK_INSTALL_FLAG} --name spark-${SPARK_VERSION}_hadoop-${HADOOP_VERSION} \
+        -Phadoop-$(echo ${HADOOP_VERSION} | cut -d '.' -f1,2) \
+        ${HIVE_INSTALL_FLAG} \
+        -Dhadoop.version=${HADOOP_VERSION} \
+        -DskipTests \
+        | awk 'NR % 50 == 0' \
+        ; \
+    mv /spark/dist/ ${SPARK_HOME}; \
+    # Replace Hive for Hadoop 3 since Hive 1.2.1 does not officially support Hadoop 3
+    if [ "${WITH_HIVE}" = "true" ] && [ "$(echo ${HADOOP_VERSION} | cut -d '.' -f1)" = "3" ]; then \
+        (cd ${SPARK_HOME}/jars && curl -LO ${HIVE_HADOOP3_HIVE_EXEC_URL}); \
+    fi; \
+    cd -; \
+    # Repo clean-up
+    rm -rf /spark; \
+    # apt clean-up
+    apt-get remove -y \
+        build-essential \
+        libssl-dev zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev libsqlite3-dev \
+        ; \
+    rm -rf /var/lib/apt/lists/*; \
     :
 
-# RUN set -euo pipefail && \
-#     rm -rf "Python-${PYTHON_VERSION}.${PY_PATCH_VERSION}.tar.xz" "/tmp/Python-${PYTHON_VERSION}.${PY_PATCH_VERSION}"; \
-#     :
+#
+# Release
+#
 
-ENV PATH="${PATH}:${PYTHON_HOME}/bin"
+FROM ${RELEASE_IMAGE}
+SHELL ["/bin/bash", "-c"]
 
-# RUN set -euo pipefail && \
-#     # Prep the Spark repo
-#     cd /; \
-#     git clone https://github.com/apache/spark.git -b v${SPARK_VERSION}; \
-#     cd /spark; \
-#     # Spark installation
-#     ## Hive prep
-#     HIVE_INSTALL_FLAG=$(if [ "${WITH_HIVE}" = "true" ]; then echo "-Phive"; fi); \
-#     ## Pyspark prep
-#     PYSPARK_INSTALL_FLAG=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo "--pip"; fi); \
-#     # Actual installation and release packaging
-#     ./dev/make-distribution.sh \
-#         ${PYSPARK_INSTALL_FLAG} --name spark-${SPARK_VERSION}_hadoop-${HADOOP_VERSION} \
-#         -Phadoop-$(echo ${HADOOP_VERSION} | cut -c 1-3) \
-#         ${HIVE_INSTALL_FLAG} \
-#         -Dhadoop.version=${HADOOP_VERSION} \
-#         -DskipTests \
-#         | awk 'NR % 50 == 0' \
-#         ; \
-#     mv /spark/dist/ ${SPARK_HOME}; \
-#     # Replace Hive for Hadoop 3 since Hive 1.2.1 does not officially support Hadoop 3
-#     if [ "${WITH_HIVE}" = "true" ] && [ "$(echo ${HADOOP_VERSION} | cut -c 1)" = "3" ]; then \
-#         (cd ${SPARK_HOME}/jars && curl -LO ${HIVE_HADOOP3_HIVE_EXEC_URL}); \
-#     fi; \
-#     # Repo clean-up
-#     rm -rf /spark; \
-#     # apt clean-up
-#     apt-get remove -y \
-#         curl \
-#         git \
-#         libssl-dev \
-#         openssl \
-#         ; \
-#     rm -rf /var/lib/apt/lists/*; \
-#     :
+ARG SPARK_HOME=/opt/spark
+ENV SPARK_HOME ${SPARK_HOME}
 
-# #
-# # Release
-# #
+ARG SPARK_VERSION
+ENV SPARK_VERSION ${SPARK_VERSION}
 
-# FROM ${RELEASE_IMAGE}
-# SHELL ["/bin/bash", "-c"]
+ARG HADOOP_VERSION
+ENV HADOOP_VERSION ${HADOOP_VERSION}
 
-# ARG SPARK_HOME=/opt/spark
-# ENV SPARK_HOME ${SPARK_HOME}
+ARG PYTHON_VERSION
+ENV PYTHON_VERSION "${PYTHON_VERSION}"
 
-# ARG SPARK_VERSION
-# ENV SPARK_VERSION ${SPARK_VERSION}
+ARG PYTHON_HOME="/opt/python${PYTHON_VERSION}"
+ENV PYTHON_HOME "${PYTHON_HOME}"
 
-# ARG HADOOP_VERSION
-# ENV HADOOP_VERSION ${HADOOP_VERSION}
+COPY --from=builder ${SPARK_HOME} ${SPARK_HOME}
+COPY --from=builder ${PYTHON_HOME} ${PYTHON_HOME}
 
-# ARG PYTHON_VERSION
-# ENV PYTHON_VERSION "${PYTHON_VERSION}"
+RUN set -euo pipefail; \
+    PYTHON_MAJOR_VERSION="$(echo ${PYTHON_VERSION} | cut -d '.' -f1)"; \
+    ln -s "${PYTHON_HOME}/bin/python${PYTHON_MAJOR_VERSION}" /usr/local/bin/python; \
+    apt-get update && apt-get install -y --no-install-recommends \
+        openssl \
+        ; \
+    rm -rf /var/lib/apt/lists/*; \
+    :
 
-# ARG PYTHON_HOME="/opt/python${PYTHON_VERSION}"
-# ENV PYTHON_HOME "${PYTHON_HOME}"
-
-# COPY --from=builder ${SPARK_HOME} ${SPARK_HOME}
-
-# RUN set -euo pipefail; \
-#     apt-get update && apt-get install -y --no-install-recommends \
-#         openssl \
-#         ; \
-#     rm -rf /var/lib/apt/lists/*; \
-#     :
-
-# ENV PATH="${PATH}:${PYTHON_HOME}/bin:${SPARK_HOME}/bin"
+ENV PATH="${PATH}:${PYTHON_HOME}/bin:${SPARK_HOME}/bin"

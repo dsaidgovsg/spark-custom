@@ -29,7 +29,7 @@ matrix:
 {%- endfor %}
 
   # Alpine builds
-{%- for v in versions %}
+{# {%- for v in versions %}
 {%- for spark in v.spark %}
 {%- for hadoop in v.hadoop %}
 {%- for python in v.python %}
@@ -48,7 +48,7 @@ matrix:
 {%- endfor %}
 {%- endfor %}
 {%- endfor %}
-{%- endfor %}
+{%- endfor %} #}
   
 script:
 - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
