@@ -10,7 +10,8 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
-    - HADOOP_VERSION=3.1.0
+    - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=2.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
@@ -18,48 +19,71 @@ matrix:
     env:
     - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.4
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.4.2
-    - HADOOP_VERSION=3.1.0
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=debian
-  - services: docker
-    env:
-    - SPARK_VERSION=2.4.2
+    - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.5
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.4.1
-    - HADOOP_VERSION=3.1.0
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=debian
-  - services: docker
-    env:
-    - SPARK_VERSION=2.4.1
+    - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.6
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.4.0
-    - HADOOP_VERSION=3.1.0
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=debian
-  - services: docker
-    env:
-    - SPARK_VERSION=2.4.0
+    - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.7
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.3
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=2.7
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.3
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.4
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.3
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.5
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.3
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.6
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.3
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
@@ -67,27 +91,39 @@ matrix:
     env:
     - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=2.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.3.2
+    - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.4
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.3.1
+    - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.5
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.3.0
+    - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.6
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+  - services: docker
+    env:
+    - SPARK_VERSION=2.3.3
+    - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
@@ -95,85 +131,121 @@ matrix:
   # Alpine builds
   - services: docker
     env:
-    - SPARK_VERSION=2.4.3
+    - SPARK_VERSION=[2.4.3]
+    - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=2.7
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+  - services: docker
+    env:
+    - SPARK_VERSION=[2.4.3]
+    - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.4
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+  - services: docker
+    env:
+    - SPARK_VERSION=[2.4.3]
+    - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.5
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+  - services: docker
+    env:
+    - SPARK_VERSION=[2.4.3]
+    - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.6
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+  - services: docker
+    env:
+    - SPARK_VERSION=[2.4.3]
+    - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.7
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+  - services: docker
+    env:
+    - SPARK_VERSION=[2.4.3]
     - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=2.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.4.3
-    - HADOOP_VERSION=2.7.3
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=alpine
-  - services: docker
-    env:
-    - SPARK_VERSION=2.4.2
+    - SPARK_VERSION=[2.4.3]
     - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.4
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.4.2
-    - HADOOP_VERSION=2.7.3
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=alpine
-  - services: docker
-    env:
-    - SPARK_VERSION=2.4.1
+    - SPARK_VERSION=[2.4.3]
     - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.5
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.4.1
-    - HADOOP_VERSION=2.7.3
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=alpine
-  - services: docker
-    env:
-    - SPARK_VERSION=2.4.0
+    - SPARK_VERSION=[2.4.3]
     - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.6
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.4.0
-    - HADOOP_VERSION=2.7.3
+    - SPARK_VERSION=[2.4.3]
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.3.3
+    - SPARK_VERSION=[2.3.3]
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=2.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.3.2
+    - SPARK_VERSION=[2.3.3]
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.4
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.3.1
+    - SPARK_VERSION=[2.3.3]
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.5
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.3.0
+    - SPARK_VERSION=[2.3.3]
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.6
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+  - services: docker
+    env:
+    - SPARK_VERSION=[2.3.3]
+    - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine

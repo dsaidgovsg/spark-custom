@@ -8,24 +8,46 @@ matrix:
   include:
   # Debian builds
 {%- for v in versions %}
+{%- for spark in v.spark %}
+{%- for hadoop in v.hadoop %}
+{%- for python in v.python %}
+{%- for with_hive in v.with_hive %}
+{%- for with_pyspark in v.with_pyspark %}
   - services: docker
     env:
-    - SPARK_VERSION={{ v.spark }}
-    - HADOOP_VERSION={{ v.hadoop }}
-    - WITH_HIVE={{ v.with_hive }}
-    - WITH_PYSPARK={{ v.with_pyspark }}
+    - SPARK_VERSION={{ spark }}
+    - HADOOP_VERSION={{ hadoop }}
+    - PYTHON_VERSION={{ python }}
+    - WITH_HIVE={{ with_hive }}
+    - WITH_PYSPARK={{ with_pyspark }}
     - DIST=debian
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
 {%- endfor %}
 
   # Alpine builds
 {%- for v in versions %}
+{%- for spark in v.spark %}
+{%- for hadoop in v.hadoop %}
+{%- for python in v.python %}
+{%- for with_hive in v.with_hive %}
+{%- for with_pyspark in v.with_pyspark %}
   - services: docker
     env:
     - SPARK_VERSION={{ v.spark }}
-    - HADOOP_VERSION={{ v.hadoop }}
-    - WITH_HIVE={{ v.with_hive }}
-    - WITH_PYSPARK={{ v.with_pyspark }}
+    - HADOOP_VERSION={{ hadoop }}
+    - PYTHON_VERSION={{ python }}
+    - WITH_HIVE={{ with_hive }}
+    - WITH_PYSPARK={{ with_pyspark }}
     - DIST=alpine
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
 {%- endfor %}
   
 script:
