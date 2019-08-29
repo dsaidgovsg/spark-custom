@@ -1,6 +1,6 @@
 # Expecting Debian images
-ARG BUILDER_IMAGE=openjdk:8-jdk-slim
-ARG RELEASE_IMAGE=openjdk:8-jre-slim
+ARG BUILDER_IMAGE=openjdk:8-jdk-slim-stretch
+ARG RELEASE_IMAGE=openjdk:8-jre-slim-stretch
 
 #
 # Builder
