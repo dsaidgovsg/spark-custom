@@ -7,7 +7,7 @@ env:
 matrix:
   include:
   # Debian builds
-{# {%- for v in versions %}
+{%- for v in versions %}
 {%- for spark in v.spark %}
 {%- for hadoop in v.hadoop %}
 {%- for python in v.python %}
@@ -26,7 +26,7 @@ matrix:
 {%- endfor %}
 {%- endfor %}
 {%- endfor %}
-{%- endfor %} #}
+{%- endfor %}
 
   # Alpine builds
 {%- for v in versions %}
