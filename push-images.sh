@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then
-    IMAGE_TEST_PREFIX=""
-else
-    IMAGE_TEST_PREFIX="test_"
+IMAGE_NAME=${IMAGE_NAME:-spark-custom}
+
+if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
+    ORIGINAL_IMAGE="${DOCKER_USERNAME}/${IMAGE_NAME}:${SPARK_VERSION}_hadoop-${HADOOP_VERSION}"
+
+    IMAGE_NAME="test-${IMAGE_NAME}"
+    TEST_IMAGE="${DOCKER_USERNAME}/${IMAGE_NAME}:${SPARK_VERSION}_hadoop-${HADOOP_VERSION}"
+    docker tag "${ORIGINAL_IMAGE}" "${TEST_IMAGE}"
 fi
 
-IMAGE_NAME=${IMAGE_NAME:-guangie88/spark-custom}
 docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-docker push "${IMAGE_NAME}:${IMAGE_TEST_PREFIX}${SPARK_VERSION}_hadoop-${HADOOP_VERSION}"
+docker push "${DOCKER_USERNAME}/${IMAGE_NAME}:${SPARK_VERSION}_hadoop-${HADOOP_VERSION}"
