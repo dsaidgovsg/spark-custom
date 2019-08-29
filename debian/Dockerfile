@@ -96,6 +96,8 @@ RUN set -euo pipefail && \
     rm -rf /spark; \
     # apt clean-up
     apt-get remove -y \
+        curl \
+        git \
         build-essential \
         libssl-dev zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev libsqlite3-dev \
         ; \
@@ -130,6 +132,9 @@ COPY --from=builder ${PYTHON_HOME} ${PYTHON_HOME}
 RUN set -euo pipefail; \
     PYTHON_MAJOR_VERSION="$(echo ${PYTHON_VERSION} | cut -d '.' -f1)"; \
     ln -s "${PYTHON_HOME}/bin/python${PYTHON_MAJOR_VERSION}" /usr/local/bin/python; \
+    ln -s "${PYTHON_HOME}/bin/pydoc${PYTHON_MAJOR_VERSION}" /usr/local/bin/pydoc; \
+    ln -s "${PYTHON_HOME}/bin/python${PYTHON_MAJOR_VERSION}-config" /usr/local/bin/python-config; \
+    ln -s "${PYTHON_HOME}/bin/idle${PYTHON_MAJOR_VERSION}" /usr/local/bin/idle; \
     apt-get update && apt-get install -y --no-install-recommends \
         openssl \
         ; \
