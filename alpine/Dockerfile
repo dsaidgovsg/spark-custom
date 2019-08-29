@@ -1,5 +1,5 @@
 ARG PYTHON_VERSION
-ARG ALPINE_DIST=alpine3.10
+ARG ALPINE_DIST=alpine3.9
 
 # Expecting Alpine images
 ARG BUILDER_IMAGE=openjdk:8-jdk-${ALPINE_DIST}
@@ -17,8 +17,15 @@ FROM ${BUILDER_IMAGE} as builder
 # Install Python by copying over from matching Alpine distribution for building
 COPY --from=python_base /usr/local /usr/local
 RUN set -euo pipefail && \
-    ldconfig; \
+    # Required extra deps
+    apk add --no-cache expat tk; \
+    idle -h >/dev/null; \
+    pydoc -h >/dev/null; \
+    2to3 -h >/dev/null; \
+    pyvenv -h >/dev/null; \
     python --version; \
+    pip --version; \
+    easy_install --version; \
     :
 
 ARG SPARK_HOME=/opt/spark
@@ -87,8 +94,15 @@ FROM ${RELEASE_IMAGE}
 # Install Python by copying over from matching Alpine distribution
 COPY --from=python_base /usr/local /usr/local
 RUN set -euo pipefail && \
-    ldconfig; \
+    # Required extra deps
+    apk add --no-cache expat tk; \
+    idle -h >/dev/null; \
+    pydoc -h >/dev/null; \
+    2to3 -h >/dev/null; \
+    pyvenv -h >/dev/null; \
     python --version; \
+    pip --version; \
+    easy_install --version; \
     :
 
 ARG SPARK_HOME=/opt/spark

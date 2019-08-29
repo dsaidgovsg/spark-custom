@@ -18,8 +18,17 @@ SHELL ["/bin/bash", "-c"]
 # Install Python by copying over from matching Debian distribution for building
 COPY --from=python_base /usr/local /usr/local
 RUN set -euo pipefail && \
+    # Required extra deps
+    apt-get update && apt-get install --no-install-recommends -y libexpat1 tk; \
+    rm -rf /var/lib/apt/lists/*; \
     ldconfig; \
+    idle -h >/dev/null; \
+    pydoc -h >/dev/null; \
+    2to3 -h >/dev/null; \
+    pyvenv -h >/dev/null; \
     python --version; \
+    pip --version; \
+    easy_install --version; \
     :
 
 ARG SPARK_HOME=/opt/spark
@@ -90,8 +99,17 @@ SHELL ["/bin/bash", "-c"]
 # Install Python by copying over from matching Debian distribution
 COPY --from=python_base /usr/local /usr/local
 RUN set -euo pipefail && \
+    # Required extra deps
+    apt-get update && apt-get install --no-install-recommends -y libexpat1 tk; \
+    rm -rf /var/lib/apt/lists/*; \
     ldconfig; \
+    idle -h >/dev/null; \
+    pydoc -h >/dev/null; \
+    2to3 -h >/dev/null; \
+    pyvenv -h >/dev/null; \
     python --version; \
+    pip --version; \
+    easy_install --version; \
     :
 
 ARG SPARK_HOME=/opt/spark
