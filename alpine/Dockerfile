@@ -44,6 +44,7 @@ RUN set -euo pipefail && \
     mkdir -p $(dirname "${SPARK_HOME}"); \
     # apt requirements
     apk add --no-cache \
+        bash \
         curl \
         git \
         ; \
@@ -75,6 +76,7 @@ RUN set -euo pipefail && \
     rm -rf /spark; \
     # apk clean-up
     apk del \
+        bash \
         curl \
         git \
         ; \
