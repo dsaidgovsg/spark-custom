@@ -46,9 +46,6 @@ RUN set -euo pipefail && \
         curl \
         git \
         ; \
-    :
-
-RUN set -euo pipefail && \
     # Prep the Spark repo
     cd /; \
     git clone https://github.com/apache/spark.git -b v${SPARK_VERSION}; \
@@ -115,4 +112,4 @@ RUN set -euo pipefail; \
     rm -rf /var/lib/apt/lists/*; \
     :
 
-ENV PATH="${SPARK_HOME}/bin"
+ENV PATH="${PATH}:${SPARK_HOME}/bin"
