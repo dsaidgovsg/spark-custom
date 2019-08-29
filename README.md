@@ -6,21 +6,21 @@ Dockerfile set-up for custom Spark build releases. Builds for both Debian and
 Alpine.
 
 This set-up follows how Spark maintains their releases. As such, it builds for
-the most recent two major.minor versions in the CI. All older versions are
-removed from the list to build, but the already-built images will continue to
-remain in the DockerHub repository and should remain usable.
+the most recent two release versions in the CI. All older versions are removed
+from the list to build, but the already-built images will continue to remain in
+the DockerHub repository and should remain usable.
 
 Also, this set-up is able to use a fixed-up `hive-exec-1.2.1.spark2.jar` for
 Hadoop 3 when using integration with Hive.
 
 The current build arguments are supported:
 
-- `SPARK_VERSION`: Full semver value of Spark to use. Example `2.4.0`.
-- `HADOOP_VERSION`: Full server value of Hadoop to use. Example `3.1.0`.
+- `SPARK_VERSION`: `x.y.z` version of Spark to use. Example `2.4.3`.
+- `HADOOP_VERSION`: `x.y.z` of Hadoop to use. Example `3.1.0`.
+- `PYTHON_VERSION`: `x.y` server value of Hadoop to use. Example `3.7`.
 - `WITH_HIVE`: Defaults to `"true"`. Install the integrated Hive at version
   `1.2.1-spark2`.
-- `WITH_PYSPARK`: Defaults to `"true"`. Installs both Python 2 and 3 into the
-  image, together with the standard `pyspark` package.
+- `WITH_PYSPARK`: Defaults to `"true"`. Installs the `pyspark` package.
 
 ## How to Apply Travis Template
 

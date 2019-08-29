@@ -2,7 +2,7 @@ language: bash
 
 env:
   global:
-  - IMAGE_NAME=${DOCKER_USERNAME}/spark-custom
+  - IMAGE_NAME=spark-custom
 
 matrix:
   include:
@@ -10,7 +10,8 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
-    - HADOOP_VERSION=3.1.0
+    - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=2.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
@@ -18,48 +19,55 @@ matrix:
     env:
     - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.5
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.4.2
-    - HADOOP_VERSION=3.1.0
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=debian
-  - services: docker
-    env:
-    - SPARK_VERSION=2.4.2
+    - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.6
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.4.1
-    - HADOOP_VERSION=3.1.0
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=debian
-  - services: docker
-    env:
-    - SPARK_VERSION=2.4.1
+    - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.4.0
+    - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=2.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.4.0
-    - HADOOP_VERSION=2.7.3
+    - SPARK_VERSION=2.4.3
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.5
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.3
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.6
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.3
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
@@ -67,27 +75,31 @@ matrix:
     env:
     - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=2.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.3.2
+    - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.5
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.3.1
+    - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.6
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.3.0
+    - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
@@ -96,7 +108,8 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
-    - HADOOP_VERSION=3.1.0
+    - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=2.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
@@ -104,48 +117,55 @@ matrix:
     env:
     - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.5
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.4.2
-    - HADOOP_VERSION=3.1.0
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=alpine
-  - services: docker
-    env:
-    - SPARK_VERSION=2.4.2
+    - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.6
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.4.1
-    - HADOOP_VERSION=3.1.0
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=alpine
-  - services: docker
-    env:
-    - SPARK_VERSION=2.4.1
+    - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.4.0
+    - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=2.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.4.0
-    - HADOOP_VERSION=2.7.3
+    - SPARK_VERSION=2.4.3
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.5
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.3
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.6
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.3
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
@@ -153,46 +173,53 @@ matrix:
     env:
     - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=2.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.3.2
+    - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.5
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.3.1
+    - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.6
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.3.0
+    - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
   
 script:
-- docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-- HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _hive; fi)
-- PYSPARK_TAG_SUFFIX=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _pyspark; fi)
-- TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}
-- FULL_IMAGE_NAME="${IMAGE_NAME}:${TAG_NAME}"
+- HIVE_TAG_SUFFIX="$(if [ "${WITH_HIVE}" = "true" ]; then echo _hive; fi)"
+- PYSPARK_TAG_SUFFIX="$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _pyspark; fi)"
+- TAG_NAME="${SPARK_VERSION}_hadoop-${HADOOP_VERSION}_python-${PYTHON_VERSION}_${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}"
 - |-
-  docker build ${DIST}/ -t ${FULL_IMAGE_NAME} \
+  docker build ${DIST}/ -t "guangie88/${IMAGE_NAME}:${TAG_NAME}" \
     --build-arg SPARK_VERSION=${SPARK_VERSION} \
     --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
+    --build-arg PYTHON_VERSION=${PYTHON_VERSION} \
     --build-arg WITH_HIVE=${WITH_HIVE} \
     --build-arg WITH_PYSPARK=${WITH_PYSPARK} \
     ;
-# Just push, doesn't matter if it's TRAVIS_PULL_REQUEST false/true
-- docker push ${FULL_IMAGE_NAME};
+
+deploy:
+  provider: script
+  script: bash push-images.sh
+  on:
+    branch: master
 
 branches:
   only:
