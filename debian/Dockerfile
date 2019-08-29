@@ -22,13 +22,8 @@ RUN set -euo pipefail && \
     apt-get update && apt-get install --no-install-recommends -y libexpat1 tk; \
     rm -rf /var/lib/apt/lists/*; \
     ldconfig; \
-    idle -h >/dev/null; \
-    pydoc -h >/dev/null; \
-    2to3 -h >/dev/null; \
-    pyvenv -h >/dev/null; \
-    python --version; \
-    pip --version; \
-    easy_install --version; \
+    # Test every command to return non-error status code for help
+    find /usr/local/bin -type f -perm /u=x,g=x,o=x -print0 | xargs -0 -I {} bash -c "{} --help || {} -h" >/dev/null 2>&1; \
     :
 
 ARG SPARK_HOME=/opt/spark
@@ -103,13 +98,8 @@ RUN set -euo pipefail && \
     apt-get update && apt-get install --no-install-recommends -y libexpat1 tk; \
     rm -rf /var/lib/apt/lists/*; \
     ldconfig; \
-    idle -h >/dev/null; \
-    pydoc -h >/dev/null; \
-    2to3 -h >/dev/null; \
-    pyvenv -h >/dev/null; \
-    python --version; \
-    pip --version; \
-    easy_install --version; \
+    # Test every command to return non-error status code for help
+    find /usr/local/bin -type f -perm /u=x,g=x,o=x -print0 | xargs -0 -I {} bash -c "{} --help || {} -h" >/dev/null 2>&1; \
     :
 
 ARG SPARK_HOME=/opt/spark
