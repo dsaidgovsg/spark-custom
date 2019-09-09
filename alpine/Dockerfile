@@ -29,6 +29,9 @@ ENV SPARK_HOME "${SPARK_HOME}"
 ARG SPARK_VERSION
 ENV SPARK_VERSION "${SPARK_VERSION}"
 
+ARG SCALA_VERSION
+ENV SCALA_VERSION "${SCALA_VERSION}"
+
 # Must be able to match the hadoop-X.Y id
 # See example: https://github.com/apache/spark/blob/v2.4.0/pom.xml#L2692
 ARG HADOOP_VERSION
@@ -40,6 +43,11 @@ ARG WITH_PYSPARK="true"
 ARG HIVE_HADOOP3_HIVE_EXEC_URL="https://github.com/guangie88/hive-exec-jar/releases/download/1.2.1.spark2-hadoop3/hive-exec-1.2.1.spark2.jar"
 
 RUN set -euo pipefail && \
+    # Santity check
+    if [ "${SCALA_VERSION}" != "2.11" ] && [ "${SCALA_VERSION}" != "2.12" ]; then \
+        >&2 echo "SCALA_VERSION must be either 2.11 or 2.12!"; \
+        exit 1; \
+    fi; \ 
     # Create Spark home
     mkdir -p $(dirname "${SPARK_HOME}"); \
     # apt requirements
@@ -58,8 +66,10 @@ RUN set -euo pipefail && \
     ## Pyspark prep
     PYSPARK_INSTALL_FLAG=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo "--pip"; fi); \
     # Actual installation and release packaging
+    ./dev/change-scala-version.sh "${SCALA_VERSION}"; \
     ./dev/make-distribution.sh \
         ${PYSPARK_INSTALL_FLAG} --name spark-${SPARK_VERSION}_hadoop-${HADOOP_VERSION} \
+        -Pscala-${SCALA_VERSION} \
         -Phadoop-$(echo ${HADOOP_VERSION} | cut -d '.' -f1,2) \
         ${HIVE_INSTALL_FLAG} \
         -Dhadoop.version=${HADOOP_VERSION} \
