@@ -32,6 +32,9 @@ ENV SPARK_HOME "${SPARK_HOME}"
 ARG SPARK_VERSION
 ENV SPARK_VERSION "${SPARK_VERSION}"
 
+ARG SCALA_VERSION
+ENV SCALA_VERSION "${SCALA_VERSION}"
+
 # Must be able to match the hadoop-X.Y id
 # See example: https://github.com/apache/spark/blob/v2.4.0/pom.xml#L2692
 ARG HADOOP_VERSION
@@ -60,6 +63,7 @@ RUN set -euo pipefail && \
     ## Pyspark prep
     PYSPARK_INSTALL_FLAG=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo "--pip"; fi); \
     # Actual installation and release packaging
+    ./dev/change-scala-version.sh "${SCALA_VERSION}"; \
     ./dev/make-distribution.sh \
         ${PYSPARK_INSTALL_FLAG} --name spark-${SPARK_VERSION}_hadoop-${HADOOP_VERSION} \
         -Phadoop-$(echo ${HADOOP_VERSION} | cut -d '.' -f1,2) \
