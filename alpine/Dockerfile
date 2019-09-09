@@ -66,10 +66,7 @@ RUN set -euo pipefail && \
     ## Pyspark prep
     PYSPARK_INSTALL_FLAG=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo "--pip"; fi); \
     # Actual installation and release packaging
-    ## Default is 2.11, and we cannot explicitly call with 2.11 because the change version doesn't support
-    if [ "${SCALA_VERSION}" = "2.12" ]; then \
-        ./dev/change-scala-version.sh "${SCALA_VERSION}"; \
-    fi; \ 
+    ./dev/change-scala-version.sh "${SCALA_VERSION}"; \
     ./dev/make-distribution.sh \
         ${PYSPARK_INSTALL_FLAG} --name spark-${SPARK_VERSION}_hadoop-${HADOOP_VERSION} \
         -Pscala-${SCALA_VERSION} \
