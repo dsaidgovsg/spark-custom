@@ -15,7 +15,8 @@ Hadoop 3 when using integration with Hive.
 
 The current build arguments are supported:
 
-- `SPARK_VERSION`: `x.y.z` version of Spark to use. Example `2.4.3`.
+- `SPARK_VERSION`: `x.y.z` version of Spark to use. Example `2.4.4`.
+- `SCALA_VERSION`: `x.y` version of Scala to use. Example `2.11` and `2.12`.
 - `HADOOP_VERSION`: `x.y.z` of Hadoop to use. Example `3.1.0`.
 - `PYTHON_VERSION`: `x.y` server value of Hadoop to use. Example `3.7`.
 - `WITH_HIVE`: Defaults to `"true"`. Install the integrated Hive at version
