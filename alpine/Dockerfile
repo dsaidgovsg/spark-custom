@@ -1,4 +1,8 @@
 ARG PYTHON_VERSION
+
+# Ideally both the Alpine version should match, but the Alpine versions
+# for openjdk:8 is lagging behind
+ARG ALPINE_COPY_FROM_DIST=alpine3.10
 ARG ALPINE_DIST=alpine3.9
 
 # Expecting Alpine images
@@ -6,7 +10,7 @@ ARG BUILDER_IMAGE=openjdk:8-jdk-${ALPINE_DIST}
 ARG RELEASE_IMAGE=openjdk:8-jre-${ALPINE_DIST}
 
 # This is solely for copying over
-FROM python:${PYTHON_VERSION}-${ALPINE_DIST} as python_base
+FROM python:${PYTHON_VERSION}-${ALPINE_COPY_FROM_DIST} as python_base
 
 #
 # Builder

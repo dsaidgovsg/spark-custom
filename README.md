@@ -1,6 +1,6 @@
 # `spark-custom`
 
-[![Build Status](https://travis-ci.org/guangie88/spark-custom.svg?branch=master)](https://travis-ci.org/guangie88/spark-custom)
+![CI Status](https://img.shields.io/github/workflow/status/guangie88/spark-custom/CI/master?label=CI&logo=github&style=for-the-badge)
 
 Dockerfile set-up for custom Spark build releases. Builds for both Debian and
 Alpine.
@@ -23,12 +23,12 @@ The current build arguments are supported:
   `1.2.1-spark2`.
 - `WITH_PYSPARK`: Defaults to `"true"`. Installs the `pyspark` package.
 
-## How to Apply Travis Template
+## How to Apply Template for CI build
 
-For Linux user, you can download Tera CLI v0.2 at
+For Linux user, you can download Tera CLI v0.3 at
 <https://github.com/guangie88/tera-cli/releases> and place it in `PATH`.
 
 Otherwise, you will need `cargo`, which can be installed via
 [rustup](https://rustup.rs/).
 
-Once `cargo` is installed, simply run `cargo install tera-cli --version=^0.2.0`.
+Once `cargo` is installed, simply run `cargo install tera-cli --version=^0.3.0`.
