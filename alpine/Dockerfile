@@ -72,7 +72,7 @@ RUN set -euo pipefail && \
     # Actual installation and release packaging
     ./dev/change-scala-version.sh "${SCALA_VERSION}"; \
     # Retry building on random failure
-    for i in {1..5}; \
+    for i in {1..5}; do \
         ./dev/make-distribution.sh \
             ${PYSPARK_INSTALL_FLAG} --name spark-${SPARK_VERSION}_hadoop-${HADOOP_VERSION} \
             -Pscala-${SCALA_VERSION} \
