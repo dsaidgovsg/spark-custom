@@ -75,6 +75,7 @@ RUN set -euo pipefail && \
         ${PYSPARK_INSTALL_FLAG} --name spark-${SPARK_VERSION}_hadoop-${HADOOP_VERSION} \
         -Pscala-${SCALA_VERSION} \
         -Phadoop-$(echo ${HADOOP_VERSION} | cut -d '.' -f1,2) \
+        -Phadoop-cloud \
         ${HIVE_INSTALL_FLAG} \
         -Dhadoop.version=${HADOOP_VERSION} \
         -DskipTests \
