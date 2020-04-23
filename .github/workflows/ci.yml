@@ -600,18 +600,21 @@ jobs:
         if ! diff .github/workflows/ci.yml .github/workflows/ci.yml.backup; then echo "ci.yml.tmpl and ci.yml differs!" && exit 1; fi
     - name: Shellcheck push image script
       run: shellcheck push-images.sh
-    - name: Build Docker image
+    - name: Build Docker image with retries
       run: |-
         HIVE_TAG_SUFFIX="$(if [ "${WITH_HIVE}" = "true" ]; then echo _hive; fi)"
         PYSPARK_TAG_SUFFIX="$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _pyspark; fi)"
         TAG_NAME="${SELF_VERSION}_${SPARK_VERSION}_scala-${SCALA_VERSION}_hadoop-${HADOOP_VERSION}_python-${PYTHON_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}"
-        docker build "${DIST}/" -t "${IMAGE_NAME}:${TAG_NAME}" \
-          --build-arg SPARK_VERSION=${SPARK_VERSION} \
-          --build-arg SCALA_VERSION=${SCALA_VERSION} \
-          --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
-          --build-arg PYTHON_VERSION=${PYTHON_VERSION} \
-          --build-arg WITH_HIVE=${WITH_HIVE} \
-          --build-arg WITH_PYSPARK=${WITH_PYSPARK} \
+        for i in {1..10}; do
+          docker build "${DIST}/" -t "${IMAGE_NAME}:${TAG_NAME}" \
+            --build-arg SPARK_VERSION=${SPARK_VERSION} \
+            --build-arg SCALA_VERSION=${SCALA_VERSION} \
+            --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
+            --build-arg PYTHON_VERSION=${PYTHON_VERSION} \
+            --build-arg WITH_HIVE=${WITH_HIVE} \
+            --build-arg WITH_PYSPARK=${WITH_PYSPARK} \
+            && break
+        done
     - name: Push Docker image
       run: |-
         export HIVE_TAG_SUFFIX="$(if [ "${WITH_HIVE}" = "true" ]; then echo _hive; fi)"
