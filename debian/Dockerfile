@@ -69,16 +69,22 @@ RUN set -euo pipefail && \
     PYSPARK_INSTALL_FLAG=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo "--pip"; fi); \
     # Actual installation and release packaging
     ./dev/change-scala-version.sh "${SCALA_VERSION}"; \
-    ./dev/make-distribution.sh \
-        ${PYSPARK_INSTALL_FLAG} --name spark-${SPARK_VERSION}_hadoop-${HADOOP_VERSION} \
-        -Pscala-${SCALA_VERSION} \
-        -Phadoop-$(echo ${HADOOP_VERSION} | cut -d '.' -f1,2) \
-        -Phadoop-cloud \
-        ${HIVE_INSTALL_FLAG} \
-        -Dhadoop.version=${HADOOP_VERSION} \
-        -DskipTests \
-        | awk 'NR % 50 == 0' \
-        ; \
+    # Retry building on random failure
+    n=0; \
+    until [ $n -ge 5 ]; do \
+        ./dev/make-distribution.sh \
+            ${PYSPARK_INSTALL_FLAG} --name spark-${SPARK_VERSION}_hadoop-${HADOOP_VERSION} \
+            -Pscala-${SCALA_VERSION} \
+            -Phadoop-$(echo ${HADOOP_VERSION} | cut -d '.' -f1,2) \
+            -Phadoop-cloud \
+            ${HIVE_INSTALL_FLAG} \
+            -Dhadoop.version=${HADOOP_VERSION} \
+            -DskipTests \
+            | awk 'NR % 50 == 0' \
+            ; \
+        n=$[$n+1]; \
+        sleep 10; \
+    done; \
     mv /spark/dist/ ${SPARK_HOME}; \
     # Replace Hive for Hadoop 3 since Hive 1.2.1 does not officially support Hadoop 3
     if [ "${WITH_HIVE}" = "true" ] && [ "$(echo ${HADOOP_VERSION} | cut -d '.' -f1)" = "3" ]; then \
