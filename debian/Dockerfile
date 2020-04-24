@@ -73,10 +73,10 @@ RUN set -euo pipefail && \
         ${PYSPARK_INSTALL_FLAG} --name spark-${SPARK_VERSION}_hadoop-${HADOOP_VERSION} \
         -Pscala-${SCALA_VERSION} \
         -Phadoop-$(echo ${HADOOP_VERSION} | cut -d '.' -f1,2) \
+        -Phadoop-cloud \
         ${HIVE_INSTALL_FLAG} \
         -Dhadoop.version=${HADOOP_VERSION} \
         -DskipTests \
-        | awk 'NR % 50 == 0' \
         ; \
     mv /spark/dist/ ${SPARK_HOME}; \
     # Replace Hive for Hadoop 3 since Hive 1.2.1 does not officially support Hadoop 3
