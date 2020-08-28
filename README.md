@@ -1,6 +1,6 @@
 # `spark-custom`
 
-![CI Status](https://img.shields.io/github/workflow/status/guangie88/spark-custom/CI/master?label=CI&logo=github&style=for-the-badge)
+![CI Status](https://img.shields.io/github/workflow/status/dsaidgovsg/spark-custom/CI/master?label=CI&logo=github&style=for-the-badge)
 
 Dockerfile set-up for custom Spark build releases. Builds for both Debian and
 Alpine.
