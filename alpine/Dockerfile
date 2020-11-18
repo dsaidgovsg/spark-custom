@@ -82,7 +82,8 @@ RUN set -euo pipefail && \
         ; \
     mv /spark/dist/ ${SPARK_HOME}; \
     # Replace Hive for Hadoop 3 since Hive 1.2.1 does not officially support Hadoop 3
-    if [ "${WITH_HIVE}" = "true" ] && [ "$(echo ${HADOOP_VERSION} | cut -d '.' -f1)" = "3" ]; then \
+    # Spark 3 doesn't require it since it uses an updated Hive 2.3 JAR
+    if [ "${WITH_HIVE}" = "true" ] && [ "$(echo ${HADOOP_VERSION} | cut -d '.' -f1)" = "3" ] && [ "$(echo ${SPARK_VERSION} | cut -d '.' -f1)" != "3" ]; then \
         (cd ${SPARK_HOME}/jars && curl -LO ${HIVE_HADOOP3_HIVE_EXEC_URL}); \
     fi; \
     cd -; \
